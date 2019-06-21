@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <paths>
+    <external-files-path name="external_files_path" path="Download" />
+    <external-path name="files_root" path="Android/data/com.example.downloadapk/"/>
+    <external-path name="external_storage_root" path="."/>
+    <!-- 这个下载路径不可以修改，必须是 GDTDOWNLOAD -->
+    <external-path name="gdt_sdk_download_path" path="GDTDOWNLOAD" />
+  </paths>
+</resources>

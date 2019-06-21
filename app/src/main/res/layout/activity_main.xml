@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <FrameLayout
+        android:id="@+id/banner_frame"
+        android:layout_width="match_parent"
+        android:layout_height="90px"/>
+    <Button
+        android:id="@+id/all_adv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/banner_frame"
+        android:text="显示广告(所有广告里面显示一个)"/>
+    <Button
+        android:id="@+id/banner_adv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/all_adv"
+        android:text="Banner广告(所有Banner广告里面显示一个)"/>
+    <Button
+        android:id="@+id/cp_adv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/banner_adv"
+        android:text="插屏广告(所有插屏广告里面显示一个)"/>
+    <Button
+        android:id="@+id/splash_adv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cp_adv"
+        android:text="开屏广告(所有开屏广告里面显示一个)"/>
+    <Button
+        android:id="@+id/video_adv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/splash_adv"
+        android:text="视频广告(所有视频广告里面显示一个)"/>
+
+
+
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+</RelativeLayout>
