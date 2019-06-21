@@ -12,7 +12,7 @@ public class AdvConstant {
 
     /**广告SDK的配置文件*/
 //    public static final String ADV_SDK_URL = "https://zh-app-store.oss-cn-shenzhen.aliyuncs.com/adConfig/adv.json";
-    public static final String ADV_SDK_URL = "https://zh-app-store.oss-cn-shenzhen.aliyuncs.com/adConfig/AdvData.json";
+//    public static final String ADV_SDK_URL = "https://zh-app-store.oss-cn-shenzhen.aliyuncs.com/adConfig/AdvData.json";
 
     /**穿山甲正式广告*/
     private static final String CSJ_APP_ID = "";//appID

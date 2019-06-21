@@ -2,7 +2,6 @@ package com.app;
 
 import sdk.adv.AdConfig;
 import sdk.adv.AdvAppLication;
-
 /**
  * @date {2019/6/21}
  */
@@ -20,6 +19,13 @@ public class MyAppLication extends AdvAppLication{
     private  final String GDT_TEST_CP_POSID = "987654321";//插屏广告ID 9050963632675168
     private  final String GDT_TEST_KP_POSID = "654321789";//开屏广告ID 2030861632674187
     private  final String GDT_TEST_VIDEO_POSID = "22222222222222222";//视频广告ID
+
+    //配置文件地址,如果没有配置,默认使用本地配置文件地址
+    @Override
+    protected String getUrl() {
+        String ADV_SDK_URL = "https://zh-app-store.oss-cn-shenzhen.aliyuncs.com/adConfig/AdvData.json";
+        return ADV_SDK_URL;
+    }
 
     @Override
     protected AdConfig initAdvConfig() {

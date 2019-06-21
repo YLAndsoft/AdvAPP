@@ -15,29 +15,22 @@ public abstract class AdvAppLication extends Application {
         super.onCreate();
         x.Ext.init(this);
         x.Ext.setDebug(false);
-//        initModuleADV();//依赖module方式初始化
-        initADV();//网络依赖配置初始化
+        String url = getUrl();
+        initADV(url);//网络依赖配置初始化
     }
-
-    //使用Module工程方式请这样初始化,在AdConstant里面手动配置广告ID
-    private void initModuleADV() {
-        adConfig = new AdConfig.Builder().build();
-        adConfig.init(this);
-        CsjAdvManager.init(this, adConfig.getCsj_appID()); //初始化穿山甲广告
-
-    }
-
+    //配置文件地址,如果没有配置,默认使用本地配置文件地址
+    protected abstract String getUrl();
+    //配置联盟广告ID抽象
     protected abstract AdConfig initAdvConfig();
-
     //网络依赖配置初始化
-    private void initADV() {
+    private void initADV(String url) {
         AdConfig advConfig = initAdvConfig();
         if(null==advConfig){
             LogHelper.e("请检查是否初始化AdConfig配置？");
             return ;
         }
         adConfig = advConfig;
-        adConfig.init(this);
+        adConfig.init(this,url);
         /*AdConfig adConfig = new AdConfig.Builder()
                 //穿山甲的ID
                 .csj_appID("").csj_bannerID("").csj_cpID("")

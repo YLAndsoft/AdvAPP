@@ -2,7 +2,11 @@ package sdk.adv;
 
 import android.content.Context;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 
 import sdk.adv.db.SPManager;
@@ -32,8 +36,15 @@ public final class AdConfig {
      *
      * @param mContext
      */
-    public void init(Context mContext) {
-        getAdvEntityConfig(mContext, AdvConstant.ADV_SDK_URL);//初始化SDK，获取配置文件信息
+    public void init(Context mContext,String url) {
+        if(null==url||url.equals("")){
+            getAssetsConfig(mContext,"AdvData.json");  //用于测试
+            return;
+        }
+        //本地配置 "AdvData.json"
+//        getAssetsConfig(mContext,url);  用于测试
+        //网络配置 AdvConstant.ADV_SDK_URL
+        getAdvEntityConfig(mContext, url);//初始化SDK，获取配置文件信息
     }
 
 
@@ -244,6 +255,38 @@ public final class AdConfig {
                 LogHelper.e(result + "");
             }
         });
+    }
+
+    /**
+     * 获取本地广告配置文件
+     * 用于测试
+     */
+    public static void getAssetsConfig(Context mContext, String jsonName){
+        try{
+            StringBuilder str = new StringBuilder();
+            InputStream inputStream = null;
+            try {
+                inputStream = mContext.getResources().getAssets().open(jsonName);
+                InputStreamReader isr = new InputStreamReader(inputStream);
+                BufferedReader reader = new BufferedReader(isr);
+                String jsonLine;
+                while ((jsonLine = reader.readLine()) != null) {
+                    str.append(jsonLine);
+                }
+                reader.close();
+                isr.close();
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+//            List<T> advList = GsonUtils.getGsonList(str.toString(),clazz);
+            AdvData advData = GsonUtils.josnToModule(str.toString(), AdvData.class);
+            if (null != advData) {
+                SPManager.getInstance(mContext).setConfig("AdvData", advData);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }
