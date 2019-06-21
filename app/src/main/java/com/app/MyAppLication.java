@@ -7,13 +7,13 @@ import sdk.adv.AdvAppLication;
  */
 public class MyAppLication extends AdvAppLication{
 
-    /**穿山甲测试广告ID*/
+    /**穿山甲广告ID*/
     private final String CSJ_TEST_APP_ID = "5019722";//appID
     private  final String CSJ_TEST_BANNER_ID = "919722591";//bannerID
     private  final String CSJ_TEST_SPLASH_ID = "819722380";//开屏ID
     private  final String CSJ_TEST_VIDEO_ID = "919722997";//视频ID
     private  final String CSJ_TEST_CP_ID = "919722786";//插屏ID
-    /**广点通测试广告ID*/
+    /**广点通广告ID*/
     private  final String GDT_TEST_APP_ID = "1109171015";//appID 1109171015
     private  final String GDT_TEST_BANNER_POSID = "123456789";//Banner广告 1000866632372105
     private  final String GDT_TEST_CP_POSID = "987654321";//插屏广告ID 9050963632675168
