@@ -29,7 +29,7 @@ public class MyAppLication extends AdvAppLication{
 
     @Override
     protected AdConfig initAdvConfig() {
-        AdConfig adConfig = new AdConfig.Builder()
+        return new AdConfig.Builder()
                 //穿山甲的ID
                 .csj_appID(CSJ_TEST_APP_ID).csj_bannerID(CSJ_TEST_BANNER_ID).csj_cpID(CSJ_TEST_CP_ID)
                 .csj_splashID(CSJ_TEST_SPLASH_ID).csj_videoID(CSJ_TEST_VIDEO_ID)
@@ -37,6 +37,10 @@ public class MyAppLication extends AdvAppLication{
                 .gdt_appID(GDT_TEST_APP_ID).gdt_bannerID(GDT_TEST_BANNER_POSID).gdt_cpID(GDT_TEST_CP_POSID)
                 .gdt_kpID(GDT_TEST_KP_POSID).gdt_videoID(GDT_TEST_VIDEO_POSID)
                 .build();//构建
-        return adConfig;
+    }
+
+    @Override
+    protected boolean isDebug() {
+        return true;
     }
 }

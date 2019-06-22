@@ -75,7 +75,7 @@ public class CsjAdvManager {
      */
     public static AdSlot getAdSlot(String advID,int w,int h){
         if(null==advID||"".equals(advID)){
-            LogHelper.e("广告ID是空的！！");
+            Lo.e("广告ID是空的！！");
             return null;
         }
         AdSlot adSlot = new AdSlot.Builder()

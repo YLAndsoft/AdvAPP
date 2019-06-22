@@ -33,12 +33,12 @@ public class GDTAdvHelper {
      */
     public static void loadBanner(Activity activity, ViewGroup viewGroup, String appID, String posID, final OnSuccessListener listener){
         if(null==appID||"".equals(appID)){
-            LogHelper.e("Banner:广点通appID为空！！");
+            Lo.e("Banner:广点通appID为空！！");
             if(listener!=null)listener.onFail(AdvConstant.GDT_TYPE);
             return;
         }
         if(null==posID||"".equals(posID)){
-            LogHelper.e("Banner:广点通posID为空！！");
+            Lo.e("Banner:广点通posID为空！！");
             if(listener!=null)listener.onFail(AdvConstant.GDT_TYPE);
             return;
         }
@@ -52,7 +52,7 @@ public class GDTAdvHelper {
         banner.setADListener(new AbstractBannerADListener() {
             @Override
             public void onNoAD(AdError adError) {
-                LogHelper.e("广点通Banner广告加载失败,错误码:"+adError.getErrorCode()+"错误信息："+adError.getErrorMsg());
+                Lo.e("广点通Banner广告加载失败,错误码:"+adError.getErrorCode()+"错误信息："+adError.getErrorMsg());
                 if(listener!=null)listener.onFail(AdvConstant.GDT_TYPE);
             }
             @Override
@@ -72,12 +72,12 @@ public class GDTAdvHelper {
     private static UnifiedInterstitialAD iad;
     public static void loadCPAdv(Activity activity, String appID, String posID,final int gold, final OnSuccessListener listener){
         if(null==appID||"".equals(appID)){
-            LogHelper.e("广点通插屏:appID为空！！");
+            Lo.e("广点通插屏:appID为空！！");
             if(listener!=null)listener.onFail(AdvConstant.GDT_CP_TYPE);//失败回调
             return;
         }
         if(null==posID||"".equals(posID)){
-            LogHelper.e("广点通插屏:posID为空！！");
+            Lo.e("广点通插屏:posID为空！！");
             if(listener!=null)listener.onFail(AdvConstant.GDT_CP_TYPE);//失败回调
             return;
         }
@@ -91,13 +91,13 @@ public class GDTAdvHelper {
                 //插屏广告加载完毕
                 @Override
                 public void onADReceive() {
-                    LogHelper.e("广点通插屏广告加载完毕");
+                    Lo.e("广点通插屏广告加载完毕");
 //                    iad.showAsPopupWindow();//展示插屏广告，无遮罩\
                 iad.show();//展示插屏广告，有遮罩
                 }
                 @Override
                 public void onNoAD(AdError adError) {
-                    LogHelper.e("插屏广告加载失败,错误码:"+adError.getErrorCode()+"错误信息："+adError.getErrorMsg());
+                    Lo.e("插屏广告加载失败,错误码:"+adError.getErrorCode()+"错误信息："+adError.getErrorMsg());
                     if(listener!=null)listener.onFail(AdvConstant.GDT_CP_TYPE);//失败回调
                 }
                 @Override
@@ -130,12 +130,12 @@ public class GDTAdvHelper {
      */
     public static void loadSplashAD(Activity activity, ViewGroup adContainer, String appID, String posID,final int gold, final OnSuccessListener listener){
         if(null==appID||"".equals(appID)){
-            LogHelper.e("广点通开屏:appID为空！！");
+            Lo.e("广点通开屏:appID为空！！");
             if(listener!=null)listener.onFail(AdvConstant.GDT_KP_TYPE);//失败回调
             return;
         }
         if(null==posID||"".equals(posID)){
-            LogHelper.e("广点通开屏:posID为空！！");
+            Lo.e("广点通开屏:posID为空！！");
             if(listener!=null)listener.onFail(AdvConstant.GDT_KP_TYPE);//失败回调
             return;
         }
@@ -145,29 +145,29 @@ public class GDTAdvHelper {
             //广告关闭时调用
             @Override
             public void onADDismissed() {
-                LogHelper.i("广告关闭");
+                Lo.i("广告关闭");
                 if(listener!=null)listener.onComplete(AdvConstant.GDT_KP_TYPE,gold,true);
             }
             //广告加载失败，error 对象包含了错误码和错误信息
             @Override
             public void onNoAD(AdError adError) {
-                LogHelper.e("广点通开屏广告加载失败,错误码:"+adError.getErrorCode()+"错误信息："+adError.getErrorMsg());
+                Lo.e("广点通开屏广告加载失败,错误码:"+adError.getErrorCode()+"错误信息："+adError.getErrorMsg());
                 if(listener!=null)listener.onFail(AdvConstant.GDT_KP_TYPE);//失败回调
             }
             //广告成功展示时调用
             @Override
             public void onADPresent() {
-                LogHelper.i("广告成功展示");
+                Lo.i("广告成功展示");
             }
             //广告被点击时调用
             @Override
             public void onADClicked() {
-                LogHelper.i("广告被点击");
+                Lo.i("广告被点击");
             }
             //倒计时回调
             @Override
             public void onADTick(long millisUntilFinished) {
-                LogHelper.e("倒计时："+String.format("点击跳过 %d",Math.round(millisUntilFinished / 1000f)));
+                Lo.e("倒计时："+String.format("点击跳过 %d",Math.round(millisUntilFinished / 1000f)));
             }
             //广告曝光时调用
             @Override
@@ -185,12 +185,12 @@ public class GDTAdvHelper {
     private static RewardVideoAD rewardVideoAD;
     public static void loadVideoAdv(Activity activity, String appID, String posID,final int gold, final OnSuccessListener listener){
         if(null==appID||"".equals(appID)){
-            LogHelper.e("广点通视频:appID为空！！");
+            Lo.e("广点通视频:appID为空！！");
             if(listener!=null)listener.onFail(AdvConstant.GDT_VIDEO_TYPE);//失败回调
             return;
         }
         if(null==posID||"".equals(posID)){
-            LogHelper.e("广点通视频:posID为空！！");
+            Lo.e("广点通视频:posID为空！！");
             if(listener!=null)listener.onFail(AdvConstant.GDT_VIDEO_TYPE);//失败回调
             return;
         }
@@ -234,7 +234,7 @@ public class GDTAdvHelper {
             //广告流程出错
             @Override
             public void onError(AdError adError) {
-                LogHelper.e("广点通视频广告加载失败,错误码:"+adError.getErrorCode()+"错误信息："+adError.getErrorMsg());
+                Lo.e("广点通视频广告加载失败,错误码:"+adError.getErrorCode()+"错误信息："+adError.getErrorMsg());
                 if(listener!=null)listener.onFail(AdvConstant.GDT_VIDEO_TYPE);//失败回调
             }
         });

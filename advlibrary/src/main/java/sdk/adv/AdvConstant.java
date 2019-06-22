@@ -6,7 +6,7 @@ package sdk.adv;
  */
 public class AdvConstant {
 
-    public static final boolean ADV_DEBUG = true;//全局日志开关,上线之前请关闭
+
 
     private static final boolean isDEBUG_ID = false;//广告ID测试开关
 

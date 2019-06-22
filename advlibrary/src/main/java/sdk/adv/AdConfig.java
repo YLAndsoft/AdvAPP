@@ -7,12 +7,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.List;
 
 import sdk.adv.db.SPManager;
 import sdk.adv.entity.AdvData;
-import sdk.adv.entity.AdvEntity;
-import sdk.adv.manager.LogHelper;
+import sdk.adv.manager.Lo;
 import sdk.adv.tools.GsonUtils;
 import sdk.adv.tools.XutilsHttp;
 
@@ -46,7 +44,10 @@ public final class AdConfig {
         //网络配置 AdvConstant.ADV_SDK_URL
         getAdvEntityConfig(mContext, url);//初始化SDK，获取配置文件信息
     }
-
+    /**日志开关*/
+    public void setLogDebug(boolean isDebug){
+        Lo.setDebug(isDebug);
+    }
 
     public String getCsj_appID() {
         return csj_appID;
@@ -230,7 +231,7 @@ public final class AdConfig {
      */
     private static void getAdvEntityConfig(final Context mContext, String url) {
         if (null == url || "".equals(url)) {
-            LogHelper.e("URL cannot be empty");
+            Lo.e("URL cannot be empty");
             return;
         }
         XutilsHttp.xUtilsGet(url, null, new XutilsHttp.XUtilsCallBack() {
@@ -242,7 +243,7 @@ public final class AdConfig {
                         SPManager.getInstance(mContext).setConfig("AdvData", advData);
                     }
                 } catch (Exception e) {
-                    LogHelper.e(e.getMessage() + "");
+                    Lo.e(e.getMessage() + "");
                 }
             }
 
@@ -252,7 +253,7 @@ public final class AdConfig {
 
             @Override
             public void onFail(String result) {
-                LogHelper.e(result + "");
+                Lo.e(result + "");
             }
         });
     }

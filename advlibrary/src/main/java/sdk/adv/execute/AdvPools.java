@@ -8,7 +8,6 @@ import java.util.List;
 import sdk.adv.db.SPManager;
 import sdk.adv.entity.AdvData;
 import sdk.adv.entity.AdvEntity;
-import sdk.adv.manager.LogHelper;
 
 /**
  * @date {2019/6/12}

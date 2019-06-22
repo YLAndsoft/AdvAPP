@@ -12,7 +12,6 @@ import com.bytedance.sdk.openadsdk.TTInteractionAd;
 import com.bytedance.sdk.openadsdk.TTRewardVideoAd;
 import com.bytedance.sdk.openadsdk.TTSplashAd;
 import sdk.adv.AdvConstant;
-import sdk.adv.execute.AdvPools;
 import sdk.adv.interfaces.OnSuccessListener;
 
 /**
@@ -32,7 +31,7 @@ public class CSJAdvHelper {
     public static void loadCSJVideo(final Activity activity, String videoID,final int gold, final OnSuccessListener listener){
         AdSlot adSlot = CsjAdvManager.getAdSlot(videoID,1080,1920);
         if(adSlot==null){
-            LogHelper.i("请检查videoID是否有效！！！");
+            Lo.i("请检查videoID是否有效！！！");
             if(listener!=null)listener.onFail(AdvConstant.CSJ_VIDEO_TYPE);//失败回调
             return;
         }
@@ -43,7 +42,7 @@ public class CSJAdvHelper {
         mTTAdNative.loadRewardVideoAd(adSlot, new TTAdNative.RewardVideoAdListener() {
             @Override
             public void onError(int i, String s) {
-                LogHelper.e("加载穿山甲视频广告错误码："+i+"，错误信息："+s);
+                Lo.e("加载穿山甲视频广告错误码："+i+"，错误信息："+s);
                 if(listener!=null)listener.onFail(AdvConstant.CSJ_VIDEO_TYPE);//失败回调
             }
             @Override
@@ -75,7 +74,7 @@ public class CSJAdvHelper {
                     }
                 });
                 ttRewardVideoAd.showRewardVideoAd(activity);
-                LogHelper.i("穿山甲视频广告加载成功！");
+                Lo.i("穿山甲视频广告加载成功！");
             }
             @Override
             public void onRewardVideoCached() {
@@ -89,7 +88,7 @@ public class CSJAdvHelper {
     public static void loadCSJKPAdv(Activity activity, final FrameLayout frameLayout, String kpID,final int gold, final OnSuccessListener listener){
         AdSlot adSlot = CsjAdvManager.getAdSlot(kpID,1080,1920);
         if(adSlot==null){
-            LogHelper.i("请检查kpID是否有效！！！");
+            Lo.i("请检查kpID是否有效！！！");
             if(listener!=null)listener.onFail(AdvConstant.CSJ_KP_TYPE);//失败回调
             return;
         }
@@ -99,12 +98,12 @@ public class CSJAdvHelper {
         mTTAdNative.loadSplashAd(adSlot, new TTAdNative.SplashAdListener() {
             @Override
             public void onError(int i, String s) {
-                LogHelper.e("加载穿山甲开屏广告错误码："+i+"，错误信息："+s);
+                Lo.e("加载穿山甲开屏广告错误码："+i+"，错误信息："+s);
                 if(listener!=null)listener.onFail(AdvConstant.CSJ_KP_TYPE);//失败回调
             }
             @Override
             public void onTimeout() {
-                LogHelper.e("加载穿山甲开屏广告超时！");
+                Lo.e("加载穿山甲开屏广告超时！");
                 if(listener!=null)listener.onFail(AdvConstant.CSJ_KP_TYPE);//失败回调
             }
             @Override
@@ -123,14 +122,14 @@ public class CSJAdvHelper {
                     @Override
                     public void onAdSkip() {//跳过
                         if(listener!=null){
-                            LogHelper.e("跳过！");
+                            Lo.e("跳过！");
                             listener.onComplete(AdvConstant.CSJ_KP_TYPE,gold,false);
                         }
                     }
                     @Override
                     public void onAdTimeOver() {//倒计时结束
                         if(listener!=null){
-                            LogHelper.e(" 倒计时结束！");
+                            Lo.e(" 倒计时结束！");
                             listener.onComplete(AdvConstant.CSJ_KP_TYPE,gold,true);
                         }
                     }
@@ -149,7 +148,7 @@ public class CSJAdvHelper {
     public static void loadCSJCPAdv(final Activity activity, String cpID,final int gold, final OnSuccessListener listener){
         AdSlot adSlot = CsjAdvManager.getAdSlot(cpID,600,600);
         if(adSlot==null){
-            LogHelper.i("请检查kpID是否有效！！！");
+            Lo.i("请检查kpID是否有效！！！");
             if(listener!=null)listener.onFail(AdvConstant.CSJ_CP_TYPE);//失败回调
             return;
         }
@@ -159,7 +158,7 @@ public class CSJAdvHelper {
         mTTAdNative.loadInteractionAd(adSlot, new TTAdNative.InteractionAdListener() {
             @Override
             public void onError(int i, String s) {
-                LogHelper.e("加载穿山甲插屏广告错误码："+i+"，错误信息："+s);
+                Lo.e("加载穿山甲插屏广告错误码："+i+"，错误信息："+s);
                 if(listener!=null)listener.onFail(AdvConstant.CSJ_CP_TYPE);//失败回调
             }
 
@@ -191,7 +190,7 @@ public class CSJAdvHelper {
     public static void loadCSJBannerAdv(Context mContext, final String bannerID, final FrameLayout mBannerContainer, final OnSuccessListener listener){
         AdSlot adSlot = CsjAdvManager.getAdSlot(bannerID,600,90);
         if(adSlot==null){
-            LogHelper.i("请检查kpID是否有效！！！");
+            Lo.i("请检查kpID是否有效！！！");
             if(listener!=null){listener.onFail(AdvConstant.CSJ_TYPE);}
             return;
         }
@@ -202,7 +201,7 @@ public class CSJAdvHelper {
             @Override
             public void onError(int i, String s) {
                 if(listener!=null){listener.onFail(AdvConstant.CSJ_TYPE);}
-                LogHelper.e("加载穿山甲Banner广告错误码："+i+"，错误信息："+s);
+                Lo.e("加载穿山甲Banner广告错误码："+i+"，错误信息："+s);
             }
             @Override
             public void onBannerAdLoad(TTBannerAd ttBannerAd) {

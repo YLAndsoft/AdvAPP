@@ -1,8 +1,6 @@
 package sdk.adv.execute;
 
 import android.app.Activity;
-import android.os.Handler;
-import android.os.Message;
 import android.widget.FrameLayout;
 
 import sdk.adv.AdConfig;
@@ -12,7 +10,7 @@ import sdk.adv.entity.AdvEntity;
 import sdk.adv.interfaces.OnSuccessListener;
 import sdk.adv.manager.CSJAdvHelper;
 import sdk.adv.manager.GDTAdvHelper;
-import sdk.adv.manager.LogHelper;
+import sdk.adv.manager.Lo;
 
 
 /**
@@ -49,9 +47,9 @@ public class AdvExecute {
      */
     public void execute(Activity activity, FrameLayout frameLayout, int gold, OnCompleteListener listener) {
         AdvEntity advEntity = AdvPools.getAdvPool().getAllAdv(activity);
-        LogHelper.i("展示广告type：" + advEntity.getAdvType());
+        Lo.i("展示广告type：" + advEntity.getAdvType());
         if(null==advEntity){
-            LogHelper.e("广告全部失效!");
+            Lo.e("广告全部失效!");
             listener.onComplete(0,true);
             return;
         }
@@ -66,7 +64,7 @@ public class AdvExecute {
                 openCSJCPAdv(advEntity,activity, frameLayout, gold, true, listener);
                 break;
             case 3: //广点通视频
-//                LogHelper.e("广点通的视频广告暂未开通!");
+//                Lo.e("广点通的视频广告暂未开通!");
                 openGDTVideoAdv(advEntity,activity, frameLayout, gold, true, listener);
                 break;
             case 4: //广点通开屏
@@ -93,7 +91,7 @@ public class AdvExecute {
     public void executeBanner(final Activity activity, final FrameLayout frameLayout, final OnCompleteListener listener){
         final AdvEntity advEntity = AdvPools.getAdvPool().getBannerAdv(activity);
         if(null==advEntity){
-            LogHelper.e("Banner广告全部失效!");
+            Lo.e("Banner广告全部失效!");
             listener.onComplete(0,true);
             return;
         }
@@ -103,7 +101,7 @@ public class AdvExecute {
                 @Override
                 public void onComplete(int type, int gold, boolean isNormal) {
                     AdvPools.getAdvPool().clearFailPool();//清空失败池
-                    LogHelper.e("穿山甲广告加载成功!");
+                    Lo.e("穿山甲广告加载成功!");
                     if(listener!=null)listener.onComplete(0,true);
                 }
                 @Override
@@ -118,7 +116,7 @@ public class AdvExecute {
                 @Override
                 public void onComplete(int type, int gold, boolean isNormal) {
                     AdvPools.getAdvPool().clearFailPool();//清空失败池
-                    LogHelper.e("广点通广告加载成功!");
+                    Lo.e("广点通广告加载成功!");
                     if(listener!=null)listener.onComplete(0,true);
                 }
                 @Override
@@ -138,7 +136,7 @@ public class AdvExecute {
     public void executeCpAdv(final Activity activity,final OnCompleteListener listener){
         final AdvEntity advEntity = AdvPools.getAdvPool().getCPAdv(activity);
         if(null==advEntity){
-            LogHelper.e("插屏广告全部失效!");
+            Lo.e("插屏广告全部失效!");
             listener.onComplete(0,true);
             return;
         }
@@ -148,7 +146,7 @@ public class AdvExecute {
                 @Override
                 public void onComplete(int type, int gold, boolean isNormal) {
                     AdvPools.getAdvPool().clearFailPool();//清空失败池
-                    LogHelper.e("穿山甲插屏广告加载成功!");
+                    Lo.e("穿山甲插屏广告加载成功!");
                     if(listener!=null)listener.onComplete(gold,isNormal);
                 }
                 @Override
@@ -163,7 +161,7 @@ public class AdvExecute {
                 @Override
                 public void onComplete(int type, int gold, boolean isNormal) {
                     AdvPools.getAdvPool().clearFailPool();//清空失败池
-                    LogHelper.e("广点通插屏广告加载成功!");
+                    Lo.e("广点通插屏广告加载成功!");
                     if(listener!=null)listener.onComplete(gold,isNormal);
                 }
                 @Override
@@ -184,7 +182,7 @@ public class AdvExecute {
     public void executeSplashAdv(final Activity activity, final FrameLayout frameLayout,final OnCompleteListener listener){
         final AdvEntity advEntity = AdvPools.getAdvPool().getSpashAdv(activity);
         if(null==advEntity){
-            LogHelper.e("开屏广告全部失效!");
+            Lo.e("开屏广告全部失效!");
             listener.onComplete(0,true);
             return;
         }
@@ -194,7 +192,7 @@ public class AdvExecute {
                 @Override
                 public void onComplete(int type, int gold, boolean isNormal) {
                     AdvPools.getAdvPool().clearFailPool();//清空失败池
-                    LogHelper.e("穿山甲开屏广告加载成功!");
+                    Lo.e("穿山甲开屏广告加载成功!");
                     if(listener!=null)listener.onComplete(gold,isNormal);
                 }
                 @Override
@@ -209,7 +207,7 @@ public class AdvExecute {
                 @Override
                 public void onComplete(int type, int gold, boolean isNormal) {
                     AdvPools.getAdvPool().clearFailPool();//清空失败池
-                    LogHelper.e("广点通开屏广告加载成功!");
+                    Lo.e("广点通开屏广告加载成功!");
                     if(listener!=null)listener.onComplete(gold,isNormal);
                 }
                 @Override
@@ -229,7 +227,7 @@ public class AdvExecute {
     public void executeVideoAdv(final Activity activity,final OnCompleteListener listener){
         final AdvEntity advEntity = AdvPools.getAdvPool().getVideoAdv(activity);
         if(null==advEntity){
-            LogHelper.e("视频广告全部失效!");
+            Lo.e("视频广告全部失效!");
             listener.onComplete(0,true);
             return;
         }
@@ -239,7 +237,7 @@ public class AdvExecute {
                 @Override
                 public void onComplete(int type, int gold, boolean isNormal) {
                     AdvPools.getAdvPool().clearFailPool();//清空失败池
-                    LogHelper.e("穿山甲视频广告加载成功!");
+                    Lo.e("穿山甲视频广告加载成功!");
                     if(listener!=null)listener.onComplete(gold,isNormal);
                 }
                 @Override
@@ -254,7 +252,7 @@ public class AdvExecute {
                 @Override
                 public void onComplete(int type, int gold, boolean isNormal) {
                     AdvPools.getAdvPool().clearFailPool();//清空失败池
-                    LogHelper.e("广点通视频广告加载成功!");
+                    Lo.e("广点通视频广告加载成功!");
                     if(listener!=null)listener.onComplete(gold,isNormal);
                 }
                 @Override
