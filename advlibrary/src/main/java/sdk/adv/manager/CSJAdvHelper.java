@@ -33,6 +33,7 @@ public class CSJAdvHelper {
         AdSlot adSlot = CsjAdvManager.getAdSlot(videoID,1080,1920);
         if(adSlot==null){
             LogHelper.i("请检查videoID是否有效！！！");
+            if(listener!=null)listener.onFail(AdvConstant.CSJ_VIDEO_TYPE);//失败回调
             return;
         }
         if(mTTAdNative==null){
@@ -89,6 +90,7 @@ public class CSJAdvHelper {
         AdSlot adSlot = CsjAdvManager.getAdSlot(kpID,1080,1920);
         if(adSlot==null){
             LogHelper.i("请检查kpID是否有效！！！");
+            if(listener!=null)listener.onFail(AdvConstant.CSJ_KP_TYPE);//失败回调
             return;
         }
         if(mTTAdNative==null){
@@ -148,6 +150,7 @@ public class CSJAdvHelper {
         AdSlot adSlot = CsjAdvManager.getAdSlot(cpID,600,600);
         if(adSlot==null){
             LogHelper.i("请检查kpID是否有效！！！");
+            if(listener!=null)listener.onFail(AdvConstant.CSJ_CP_TYPE);//失败回调
             return;
         }
         if(mTTAdNative==null){
@@ -189,6 +192,7 @@ public class CSJAdvHelper {
         AdSlot adSlot = CsjAdvManager.getAdSlot(bannerID,600,90);
         if(adSlot==null){
             LogHelper.i("请检查kpID是否有效！！！");
+            if(listener!=null){listener.onFail(AdvConstant.CSJ_TYPE);}
             return;
         }
         if(mTTAdNative==null){

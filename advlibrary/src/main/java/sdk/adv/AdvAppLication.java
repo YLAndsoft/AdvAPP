@@ -31,14 +31,6 @@ public abstract class AdvAppLication extends Application {
         }
         adConfig = advConfig;
         adConfig.init(this,url);
-        /*AdConfig adConfig = new AdConfig.Builder()
-                //穿山甲的ID
-                .csj_appID("").csj_bannerID("").csj_cpID("")
-                .csj_splashID("").csj_videoID("")
-                //广点通的ID
-                .gdt_appID("").gdt_bannerID("").gdt_cpID("")
-                .gdt_kpID("").gdt_videoID("")
-                .build();//构建*/
         CsjAdvManager.init(this, advConfig.getCsj_appID()); //初始化穿山甲广告
     }
 

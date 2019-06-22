@@ -286,7 +286,7 @@ public class AdvExecute {
             @Override
             public void onFail(int type) {
                 if (isLoop) {
-                    AdvPools.getAdvPool().setAdvFailAlls(advEntity);
+                    AdvPools.getAdvPool().setVideoFailPool(advEntity);
                     execute(activity, frameLayout, gold, listener);
                 }else{
                     if(listener!=null)listener.onComplete(gold,false);
@@ -314,6 +314,7 @@ public class AdvExecute {
             @Override
             public void onFail(int type) {
                 if (isLoop) {
+                    AdvPools.getAdvPool().setSplashFailPool(advEntity);
                     execute(activity, frameLayout, gold, listener);
                 }else{
                     if(listener!=null)listener.onComplete(gold,false);
@@ -341,6 +342,7 @@ public class AdvExecute {
             @Override
             public void onFail(int type) {
                 if (isLoop) {
+                    AdvPools.getAdvPool().setCpFailPool(advEntity);
                     execute(activity, frameLayout, gold, listener);
                 }else{
                     if(listener!=null)listener.onComplete(gold,false);
@@ -368,6 +370,7 @@ public class AdvExecute {
             @Override
             public void onFail(int type) {
                 if (isLoop) {
+                    AdvPools.getAdvPool().setVideoFailPool(advEntity);
                     execute(activity, frameLayout, gold, listener);
                 }else{
                     if(listener!=null)listener.onComplete(gold,false);
@@ -395,6 +398,7 @@ public class AdvExecute {
             @Override
             public void onFail(int type) {
                 if (isLoop) {
+                    AdvPools.getAdvPool().setSplashFailPool(advEntity);
                     execute(activity, frameLayout, gold, listener);
                 }else{
                     if(listener!=null)listener.onComplete(gold,false);
@@ -422,6 +426,7 @@ public class AdvExecute {
             @Override
             public void onFail(int type) {
                 if (isLoop) {
+                    AdvPools.getAdvPool().setCpFailPool(advEntity);
                     execute(activity, frameLayout, gold, listener);
                 }else{
                     if(listener!=null)listener.onComplete(gold,false);

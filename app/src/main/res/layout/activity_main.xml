@@ -42,7 +42,6 @@
         android:text="视频广告(所有视频广告里面显示一个)"/>
 
 
-
     <FrameLayout
         android:id="@+id/frame"
         android:layout_width="match_parent"

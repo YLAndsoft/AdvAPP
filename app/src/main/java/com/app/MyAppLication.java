@@ -14,11 +14,11 @@ public class MyAppLication extends AdvAppLication{
     private  final String CSJ_TEST_VIDEO_ID = "919722997";//视频ID
     private  final String CSJ_TEST_CP_ID = "919722786";//插屏ID
     /**广点通广告ID*/
-    private  final String GDT_TEST_APP_ID = "1109171015";//appID 1109171015
-    private  final String GDT_TEST_BANNER_POSID = "123456789";//Banner广告 1000866632372105
-    private  final String GDT_TEST_CP_POSID = "987654321";//插屏广告ID 9050963632675168
-    private  final String GDT_TEST_KP_POSID = "654321789";//开屏广告ID 2030861632674187
-    private  final String GDT_TEST_VIDEO_POSID = "22222222222222222";//视频广告ID
+    private  final String GDT_TEST_APP_ID = "";//appID 1109171015
+    private  final String GDT_TEST_BANNER_POSID = "";//Banner广告 1000866632372105
+    private  final String GDT_TEST_CP_POSID = "";//插屏广告ID 9050963632675168
+    private  final String GDT_TEST_KP_POSID = "";//开屏广告ID 2030861632674187
+    private  final String GDT_TEST_VIDEO_POSID = "";//视频广告ID
 
     //配置文件地址,如果没有配置,默认使用本地配置文件地址
     @Override

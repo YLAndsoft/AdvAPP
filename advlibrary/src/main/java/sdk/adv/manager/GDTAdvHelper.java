@@ -33,11 +33,13 @@ public class GDTAdvHelper {
      */
     public static void loadBanner(Activity activity, ViewGroup viewGroup, String appID, String posID, final OnSuccessListener listener){
         if(null==appID||"".equals(appID)){
-            LogHelper.e("Banner:广点通appID不能为空！！");
+            LogHelper.e("Banner:广点通appID为空！！");
+            if(listener!=null)listener.onFail(AdvConstant.GDT_TYPE);
             return;
         }
         if(null==posID||"".equals(posID)){
-            LogHelper.e("Banner:广点通posID不能为空！！");
+            LogHelper.e("Banner:广点通posID为空！！");
+            if(listener!=null)listener.onFail(AdvConstant.GDT_TYPE);
             return;
         }
         viewGroup.removeAllViews();
@@ -70,11 +72,13 @@ public class GDTAdvHelper {
     private static UnifiedInterstitialAD iad;
     public static void loadCPAdv(Activity activity, String appID, String posID,final int gold, final OnSuccessListener listener){
         if(null==appID||"".equals(appID)){
-            LogHelper.e("广点通插屏:appID不能为空！！");
+            LogHelper.e("广点通插屏:appID为空！！");
+            if(listener!=null)listener.onFail(AdvConstant.GDT_CP_TYPE);//失败回调
             return;
         }
         if(null==posID||"".equals(posID)){
-            LogHelper.e("广点通插屏:posID不能为空！！");
+            LogHelper.e("广点通插屏:posID为空！！");
+            if(listener!=null)listener.onFail(AdvConstant.GDT_CP_TYPE);//失败回调
             return;
         }
         if (iad != null) {
@@ -126,11 +130,13 @@ public class GDTAdvHelper {
      */
     public static void loadSplashAD(Activity activity, ViewGroup adContainer, String appID, String posID,final int gold, final OnSuccessListener listener){
         if(null==appID||"".equals(appID)){
-            LogHelper.e("广点通开屏:appID不能为空！！");
+            LogHelper.e("广点通开屏:appID为空！！");
+            if(listener!=null)listener.onFail(AdvConstant.GDT_KP_TYPE);//失败回调
             return;
         }
         if(null==posID||"".equals(posID)){
-            LogHelper.e("广点通开屏:posID不能为空！！");
+            LogHelper.e("广点通开屏:posID为空！！");
+            if(listener!=null)listener.onFail(AdvConstant.GDT_KP_TYPE);//失败回调
             return;
         }
         adContainer.removeAllViews();
@@ -178,6 +184,17 @@ public class GDTAdvHelper {
      */
     private static RewardVideoAD rewardVideoAD;
     public static void loadVideoAdv(Activity activity, String appID, String posID,final int gold, final OnSuccessListener listener){
+        if(null==appID||"".equals(appID)){
+            LogHelper.e("广点通视频:appID为空！！");
+            if(listener!=null)listener.onFail(AdvConstant.GDT_VIDEO_TYPE);//失败回调
+            return;
+        }
+        if(null==posID||"".equals(posID)){
+            LogHelper.e("广点通视频:posID为空！！");
+            if(listener!=null)listener.onFail(AdvConstant.GDT_VIDEO_TYPE);//失败回调
+            return;
+        }
+
         rewardVideoAD = new RewardVideoAD(activity, appID, posID, new RewardVideoADListener() {
             //广告加载成功，可在此回调后进行广告展示
             @Override

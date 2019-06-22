@@ -38,6 +38,7 @@ public class AdvConstant {
     /**广告联盟ID*/
     public static final int CSJ_TYPE = 11; //穿山甲
     public static final int GDT_TYPE = 22;//广点通
+    public static final int ADV_TYPE = 33;//以后增加，往下累加
 
     /**穿山甲测试广告ID*/
     private static final String CSJ_TEST_APP_ID = "5019722";//appID

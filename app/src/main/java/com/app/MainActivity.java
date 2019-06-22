@@ -10,6 +10,7 @@ import android.widget.Toast;
 import sdk.adv.entity.AdvEntity;
 import sdk.adv.execute.AdvExecute;
 import sdk.adv.execute.AdvPools;
+import sdk.adv.tools.XutilsHttp;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -89,6 +90,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 });
                 break;
+
+
         }
     }
 

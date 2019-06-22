@@ -33,6 +33,6 @@ dependencies {
     implementation project(':advlibrary')
     /**权限请求框架*/
     implementation 'com.lovedise:permissiongen:0.0.6'
-
-//    implementation 'com.github.YLAndsoft:AdvAPP:0.1'
+//    api(name: 'advlibrary', ext: 'aar')
+//    implementation 'com.github.YLAndsoft:AdvAPP:0.2'  //
 }
