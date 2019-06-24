@@ -41,6 +41,7 @@ public class MyAppLication extends AdvAppLication{
 
     @Override
     protected boolean isDebug() {
+        //测试阶段打开，可以通过日志排查问题，上线时去除该调用
         return true;
     }
 }

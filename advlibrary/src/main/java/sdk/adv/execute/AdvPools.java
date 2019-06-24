@@ -113,9 +113,17 @@ public class AdvPools {
             return newList;
         }
         for(int i=0;i<entities.size();i++){
-            if(!failAdv.contains(entities.get(i))){
+            boolean isContains = false;
+            for(int j=0;j<failAdv.size();j++){
+                if(failAdv.get(j).getAdvType()==entities.get(i).getAdvType()){
+                    isContains = true;
+                    break;
+                }
+            }
+            if(!isContains){
                 newList.add(entities.get(i));
             }
+
         }
         return newList;
     }
@@ -266,7 +274,7 @@ public class AdvPools {
                 }
             }
         }
-        if(!isContains)splashFailPool.add(videoAdvEntity);//不存在,则添加
+        if(!isContains)videoFailPool.add(videoAdvEntity);//不存在,则添加
     }
 
     public static List<AdvEntity> getAdvAllFials() {
