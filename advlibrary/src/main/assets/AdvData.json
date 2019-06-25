@@ -1,14 +1,14 @@
 {"bannerAdvs":[
-{"advType":11,"advRatio":100,"advName":"穿山甲Banner广告"},
-{"advType":22,"advRatio":0,"advName":"广点通Banner广告"}],
+{"advType":11,"advRatio":50,"advName":"穿山甲Banner广告"},
+{"advType":22,"advRatio":50,"advName":"广点通Banner广告"}],
 
 "cpAdvs":[
 {"advType":11,"advRatio":50,"advName":"穿山甲插屏广告"},
 {"advType":22,"advRatio":50,"advName":"广点通插屏广告"}],
 
 "splashAdvs":[
-{"advType":11,"advRatio":50,"advName":"穿山甲开屏广告"},
-{"advType":22,"advRatio":50,"advName":"广点通开屏广告"}],
+{"advType":11,"advRatio":0,"advName":"穿山甲开屏广告"},
+{"advType":22,"advRatio":100,"advName":"广点通开屏广告"}],
 
 "videoAdvs":[
 {"advType":11,"advRatio":50,"advName":"穿山甲视频广告"},
@@ -19,4 +19,17 @@
 {"advType":3,"advRatio":10,"advName":"穿山甲插屏广告"},
 {"advType":4,"advRatio":20,"advName":"广点通视频广告"},
 {"advType":5,"advRatio":5,"advName":"广点通开屏广告"},
-{"advType":6,"advRatio":5,"advName":"广点通插屏广告"}]}
+{"advType":6,"advRatio":5,"advName":"广点通插屏广告"}]
+,"advID":{
+"csj_appID":"5018783",
+"csj_bannerID":"918783581",
+"csj_cpID":"918783672",
+"csj_splashID":"818783801",
+"csj_videoID":"918783612",
+"gdt_appID":"1108967774",
+"gdt_bannerID":"1000866632372105",
+"gdt_cpID":"9050963632675168",
+"gdt_splashID":"5080262484266590",
+"gdt_videoID":"6000625736289442"
+}
+}

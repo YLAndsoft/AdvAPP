@@ -7,15 +7,25 @@ import java.util.List;
  * @date {2019/6/19}
  */
 public class AdvData implements Serializable{
-    List<AdvEntity> bannerAdvs;//banner广告集合
+    private List<AdvEntity> bannerAdvs;//banner广告集合
 
-    List<AdvEntity> cpAdvs;//插屏广告集合
+    private List<AdvEntity> cpAdvs;//插屏广告集合
 
-    List<AdvEntity> splashAdvs;//开屏广告集合
+    private List<AdvEntity> splashAdvs;//开屏广告集合
 
-    List<AdvEntity> videoAdvs;//视频广告集合
+    private List<AdvEntity> videoAdvs;//视频广告集合
 
-    List<AdvEntity> allAdvs;//视频广告集合
+    private List<AdvEntity> allAdvs;//视频广告集合
+
+    private AdvID advID;
+
+    public AdvID getAdvID() {
+        return advID;
+    }
+
+    public void setAdvID(AdvID advID) {
+        this.advID = advID;
+    }
 
     public List<AdvEntity> getAllAdvs() {
         return allAdvs;

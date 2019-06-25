@@ -19,13 +19,14 @@ import sdk.adv.manager.Lo;
  */
 public class AdvExecute {
     private static AdvExecute advExecute;
-    private static AdConfig config = AdvAppLication.adConfig;
+    private static AdConfig config;
     public interface OnCompleteListener{
         void onComplete(int gold, boolean isNormal);
     }
 
     public static AdvExecute create() {
         if (advExecute == null) {
+            config = AdvAppLication.adConfig;
             advExecute = new AdvExecute();
         }
         return advExecute;
@@ -263,6 +264,9 @@ public class AdvExecute {
             });
         }
     }
+
+
+
 
     /****************************以下方法是加载单个广告***************************/
     /**

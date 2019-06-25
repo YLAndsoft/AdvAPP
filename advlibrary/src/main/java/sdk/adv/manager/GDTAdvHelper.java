@@ -140,7 +140,7 @@ public class GDTAdvHelper {
             return;
         }
         adContainer.removeAllViews();
-        adContainer.setVisibility(View.GONE);
+        adContainer.setVisibility(View.VISIBLE);
         SplashAD splashAD = new SplashAD(activity, adContainer, appID, posID, new SplashADListener() {
             //广告关闭时调用
             @Override

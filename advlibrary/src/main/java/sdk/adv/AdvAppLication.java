@@ -27,15 +27,15 @@ public abstract class AdvAppLication extends Application {
         boolean debug = isDebug();
         x.Ext.init(this);
         x.Ext.setDebug(debug);
-        AdConfig advConfig = initAdvConfig();
-        if(null==advConfig){
-            Lo.e("请检查是否初始化AdConfig配置？");
-            return ;
+        adConfig = initAdvConfig();
+        if(null==adConfig){
+            adConfig = new AdConfig();
+            adConfig.init(this,url); //去拿网络上的ID
+        }else{
+            CsjAdvManager.init(this, adConfig.getCsj_appID()); //初始化穿山甲广告
         }
-        adConfig = advConfig;
-        adConfig.init(this,url);
         adConfig.setLogDebug(debug);
-        CsjAdvManager.init(this, advConfig.getCsj_appID()); //初始化穿山甲广告
+
     }
 
 }

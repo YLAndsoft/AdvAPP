@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
 
 import sdk.adv.db.SPManager;
 import sdk.adv.entity.AdvData;
+import sdk.adv.entity.AdvID;
+import sdk.adv.manager.CsjAdvManager;
 import sdk.adv.manager.Lo;
 import sdk.adv.tools.GsonUtils;
 import sdk.adv.tools.XutilsHttp;
@@ -36,11 +38,10 @@ public final class AdConfig {
      */
     public void init(Context mContext,String url) {
         if(null==url||url.equals("")){
+            //本地配置 "AdvData.json"
             getAssetsConfig(mContext,"AdvData.json");  //用于测试
             return;
         }
-        //本地配置 "AdvData.json"
-//        getAssetsConfig(mContext,url);  用于测试
         //网络配置 AdvConstant.ADV_SDK_URL
         getAdvEntityConfig(mContext, url);//初始化SDK，获取配置文件信息
     }
@@ -143,70 +144,47 @@ public final class AdConfig {
         private String gdt_videoID;
 
         public Builder() {
-            /**穿山甲测试广告ID*/
-            /*csj_appID = AdvConstant.csj_appID;
-            csj_bannerID = AdvConstant.csj_bannerID;
-            csj_splashID = AdvConstant.csj_splashID;
-            csj_videoID = AdvConstant.csj_videoID;
-            csj_cpID = AdvConstant.csj_cpID;*/
-            /**广点通测试广告ID*/
-            /*gdt_appID = AdvConstant.gdt_appID;
-            gdt_bannerID = AdvConstant.gdt_bannerID;
-            gdt_kpID = AdvConstant.gdt_kpID;
-            gdt_cpID = AdvConstant.gdt_cpID;
-            gdt_videoID = AdvConstant.gdt_videoID;*/
         }
-
         public AdConfig.Builder csj_appID(String csj_appID) {
             this.csj_appID = csj_appID;
             return this;
         }
-
         public AdConfig.Builder csj_bannerID(String csj_bannerID) {
             this.csj_bannerID = csj_bannerID;
             return this;
         }
-
         public AdConfig.Builder csj_splashID(String csj_splashID) {
             this.csj_splashID = csj_splashID;
             return this;
         }
-
         public AdConfig.Builder csj_cpID(String csj_cpID) {
             this.csj_cpID = csj_cpID;
             return this;
         }
-
         public AdConfig.Builder csj_videoID(String csj_videoID) {
             this.csj_videoID = csj_videoID;
             return this;
         }
-
         public AdConfig.Builder gdt_bannerID(String gdt_bannerID) {
             this.gdt_bannerID = gdt_bannerID;
             return this;
         }
-
         public AdConfig.Builder gdt_appID(String gdt_appID) {
             this.gdt_appID = gdt_appID;
             return this;
         }
-
         public AdConfig.Builder gdt_kpID(String gdt_kpID) {
             this.gdt_kpID = gdt_kpID;
             return this;
         }
-
         public AdConfig.Builder gdt_cpID(String gdt_cpID) {
             this.gdt_cpID = gdt_cpID;
             return this;
         }
-
         public AdConfig.Builder gdt_videoID(String gdt_videoID) {
             this.gdt_videoID = gdt_videoID;
             return this;
         }
-
         public AdConfig build() {
             AdConfig adConfig = new AdConfig();
             adConfig.setCsj_appID(csj_appID);
@@ -219,7 +197,6 @@ public final class AdConfig {
             adConfig.setGdt_cpID(gdt_cpID);
             adConfig.setGdt_kpID(gdt_kpID);
             adConfig.setGdt_videoID(gdt_videoID);
-
             return adConfig;
         }
 
@@ -241,16 +218,32 @@ public final class AdConfig {
                     AdvData advData = GsonUtils.josnToModule(result, AdvData.class);
                     if (null != advData) {
                         SPManager.getInstance(mContext).setConfig("AdvData", advData);
+                        AdvID advID = advData.getAdvID();
+                        AdvAppLication.adConfig = new AdConfig.Builder()
+                                //穿山甲的ID
+                                .csj_appID(advID.getCsj_appID())
+                                .csj_bannerID(advID.getCsj_bannerID())
+                                .csj_cpID(advID.getCsj_cpID())
+                                .csj_splashID(advID.getCsj_splashID())
+                                .csj_videoID(advID.getCsj_videoID())
+                                //广点通的ID
+                                .gdt_appID(advID.getGdt_appID())
+                                .gdt_bannerID(advID.getGdt_bannerID())
+                                .gdt_cpID(advID.getGdt_cpID())
+                                .gdt_kpID(advID.getGdt_splashID())
+                                .gdt_videoID(advID.getGdt_videoID())
+                                .build();
+                        CsjAdvManager.init(mContext, advData.getAdvID().getCsj_appID()); //初始化穿山甲广告
+                    }else{
+                        Lo.e("getAdvEntityConfig:请检查配置文件数据是否正确或者网络是否正常！");
                     }
                 } catch (Exception e) {
-                    Lo.e(e.getMessage() + "");
+                    Lo.e("getAdvEntityConfig:"+e.getMessage() + "");
                 }
             }
-
             @Override
             public void onDownSuccess(File result) {
             }
-
             @Override
             public void onFail(String result) {
                 Lo.e(result + "");
