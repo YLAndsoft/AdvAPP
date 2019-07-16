@@ -19,8 +19,27 @@ public class AdvData implements Serializable{
 
     private AdvID advID;
 
+    private String appName;//对应的应用名称
+    private String packageName;//对应的应用包名
+
     public AdvID getAdvID() {
         return advID;
+    }
+
+    public String getAppName() {
+        return appName;
+    }
+
+    public void setAppName(String appName) {
+        this.appName = appName;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
 
     public void setAdvID(AdvID advID) {

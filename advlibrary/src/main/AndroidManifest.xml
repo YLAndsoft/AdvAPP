@@ -18,7 +18,16 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-    <!--android:usesCleartextTraffic="true"针对28api以上对网络限制的问题-->
+    <!-- LKVideoSDK需要的权限 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+
+
     <application
         android:usesCleartextTraffic="true"
         >
@@ -41,7 +50,6 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
-
         <service android:name="com.qq.e.comm.DownloadService"
             android:exported="false" />
         <activity android:name="com.qq.e.ads.ADActivity"
@@ -52,5 +60,58 @@
         <activity android:name="com.qq.e.ads.LandscapeADActivity"
             android:screenOrientation="landscape"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+
+        <!-- LKVideoSDK 组件声明start -->
+        <activity
+            android:name="com.lkvideo.sdk.ui.LKActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name="com.lkvideo.sdk.ui.LKVideoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name="com.lkvideo.sdk.ui.LKCancelActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/KDDownCancelDialog" />
+
+        <!--<provider
+            android:name="com.lkvideo.sdk.utils.LKFileProvider"
+            android:authorities="${applicationId}.fclkfileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            &lt;!&ndash;<meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/kd_file_paths" />  &ndash;&gt;
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>-->
+        <service
+            android:name="com.lkvideo.sdk.utils.DownloadService"
+            android:exported="false"/>
+
+        <!-- LKVideoSDK 组件声明end -->
+
+        <!--精众SDK-->
+        <provider android:name="com.ssp.sdk.platform.utils.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+        <!--<activity android:name="com.ssp.sdk.platform.ui.MActivity"/>-->
+
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
+        <activity  android:name="com.ssp.sdk.platform.show.ActivityVideo"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <service android:name="com.ssp.sdk.platform.service.MService" />
+
+
+
     </application>
 </manifest>

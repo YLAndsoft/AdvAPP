@@ -40,6 +40,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/splash_adv"
         android:text="视频广告(所有视频广告里面显示一个)"/>
+    <Button
+        android:id="@+id/btn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/video_adv"
+        android:text="load"/>
+    <Button
+        android:id="@+id/btn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn1"
+        android:text="show"/>
 
 
     <FrameLayout

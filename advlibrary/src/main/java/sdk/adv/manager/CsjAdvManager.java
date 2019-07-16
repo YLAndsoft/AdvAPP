@@ -26,7 +26,10 @@ public class CsjAdvManager {
         //强烈建议在应用对应的Application#onCreate()方法中调用，避免出现content为null的异常
         try{
             TTAdSdk.init(context,buildConfig(context,appID));
+            //拿取权限
+            TTAdSdk.getAdManager().requestPermissionIfNecessary(context);
         }catch (Exception e){
+            Lo.e("CsjAdvManager>init()："+e.getMessage());
             e.printStackTrace();
         }
     }
@@ -38,6 +41,7 @@ public class CsjAdvManager {
         try{
             return TTAdSdk.getAdManager();
         }catch (Exception e){
+            Lo.e("CsjAdvManager>getTTAdManager()："+e.getMessage());
             e.printStackTrace();
         }
         return null;

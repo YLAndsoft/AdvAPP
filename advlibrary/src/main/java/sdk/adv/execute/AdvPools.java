@@ -8,6 +8,9 @@ import java.util.List;
 import sdk.adv.db.SPManager;
 import sdk.adv.entity.AdvData;
 import sdk.adv.entity.AdvEntity;
+import sdk.adv.manager.Lo;
+import sdk.adv.tools.FileTools;
+import sdk.adv.tools.GsonUtils;
 
 /**
  * @date {2019/6/12}
@@ -21,11 +24,12 @@ public class AdvPools {
     private static List<AdvEntity> splashFailPool = new ArrayList<>();//cp广告失败池
     private static List<AdvEntity> videoFailPool = new ArrayList<>();//cp广告失败池
     private static AdvPools advPool;
+    private static AdvData advData;
 
-
-    public static AdvPools getAdvPool(){
+    public static AdvPools getAdvPool(Context mContext){
         if(advPool==null){
             advPool = new AdvPools();
+            advData = (AdvData) SPManager.getInstance(mContext).getConfig("AdvData");
         }
         return advPool;
     }
@@ -33,23 +37,22 @@ public class AdvPools {
      * 获取Banner广告实体
      * @return
      */
-    public AdvEntity getAllAdv(Context mContext){
-        List<AdvEntity> entities = getAdvEntitys(mContext,0);
+    public AdvEntity getAllAdv(){
+        List<AdvEntity> entities = getAdvEntitys(0);
+        if(null==entities||entities.size()<=0)return null;
         List<AdvEntity> newList = checkAdvEntity(0,entities);
-        if(null==newList||newList.size()<=0){
-            return null;
-        }
+        if(null==newList||newList.size()<=0)return null;
         AdvEntity advEntity = AdvRandom.randomAdv(newList);
         return advEntity;
     }
-
 
     /***
      * 获取Banner广告实体
      * @return
      */
-    public AdvEntity getBannerAdv(Context mContext){
-        List<AdvEntity> entities = getAdvEntitys(mContext,1);
+    public AdvEntity getBannerAdv(){
+        List<AdvEntity> entities = getAdvEntitys(1);
+        if(null==entities||entities.size()<=0)return null;
         List<AdvEntity> newList = checkAdvEntity(1,entities);
         if(null==newList||newList.size()<=0){
             return null;
@@ -61,19 +64,21 @@ public class AdvPools {
      * 获取插屏广告实体
      * @return
      */
-    public AdvEntity getCPAdv(Context mContext){
-        List<AdvEntity> entities = getAdvEntitys(mContext,2);
+    public AdvEntity getCPAdv(){
+        List<AdvEntity> entities = getAdvEntitys(2);
+        if(null==entities||entities.size()<=0)return null;
         List<AdvEntity> newList = checkAdvEntity(2,entities);
         AdvEntity advEntity = AdvRandom.randomAdv(newList);
         return advEntity;
     }
     /***
      * 获取开屏广告
-     * @param mContext
+     * @param
      * @return
      */
-    public AdvEntity getSpashAdv(Context mContext){
-        List<AdvEntity> entities = getAdvEntitys(mContext,3);
+    public AdvEntity getSpashAdv(){
+        List<AdvEntity> entities = getAdvEntitys(3);
+        if(null==entities||entities.size()<=0)return null;
         List<AdvEntity> newList = checkAdvEntity(3,entities);
         AdvEntity advEntity = AdvRandom.randomAdv(newList);
         return advEntity;
@@ -81,29 +86,22 @@ public class AdvPools {
 
     /**
      * 获取视频广告集合
-     * @param mContext
+     * @param
      * @return
      */
-    public AdvEntity getVideoAdv(Context mContext){
-        List<AdvEntity> entities = getAdvEntitys(mContext,4);
+    public AdvEntity getVideoAdv(){
+        List<AdvEntity> entities = getAdvEntitys(4);
+        if(null==entities||entities.size()<=0)return null;
         List<AdvEntity> newList = checkAdvEntity(4,entities);
         AdvEntity advEntity = AdvRandom.randomAdv(newList);
         return advEntity;
     }
 
 
-
-//    public AdvEntity getBannerAdv(List<AdvEntity> entities){
-////        List<AdvEntity> entities = getAdvEntitys(mContext,1);
-//        List<AdvEntity> newList = checkAdvEntity(entities);
-//        AdvEntity advEntity = AdvRandom.randomAdv(newList);
-//        return advEntity;
-//    }
-
     /**
      * 检查过滤掉已经加载失败的广告
      */
-    private List<AdvEntity> checkAdvEntity(int type,List<AdvEntity> entities){
+    private static List<AdvEntity> checkAdvEntity(int type,List<AdvEntity> entities){
         if(null==entities||entities.size()<=0) return null;
         List<AdvEntity> newList = new ArrayList<>();
         List<AdvEntity> failAdv = getFailAdv(type);
@@ -133,7 +131,7 @@ public class AdvPools {
      * @param type
      * @return
      */
-    private List<AdvEntity> getFailAdv(int type){
+    private static List<AdvEntity>  getFailAdv(int type){
         List<AdvEntity> fails = null;
         switch (type){
             case 0:
@@ -160,8 +158,11 @@ public class AdvPools {
      *  0:返回所有广告集合 1：返回Banner广告集合 2：返回插屏广告集合 3:返回开屏广告集合 4：返回视频广告集合
      * @return
      */
-    private static List<AdvEntity> getAdvEntitys(Context mContext,int type){
-        AdvData advData = (AdvData) SPManager.getInstance(mContext).getConfig("AdvData");
+    private static List<AdvEntity> getAdvEntitys(int type){
+        if(null==advData){
+            Lo.e("配置文件advData的数据为NUll,不加载任何广告!");
+            return null;
+        }
         List<AdvEntity> advEntityList = null;
         switch (type){
             case 0:
@@ -199,7 +200,7 @@ public class AdvPools {
         return isLocalFail;
     }
 
-    public static void setAdvFailAlls(AdvEntity allEntity) {
+    protected static void setAdvFailAlls(AdvEntity allEntity) {
         boolean isContains = false;
         if(advAllFials.size()>0){
             for(int i = 0;i<advAllFials.size();i++){
@@ -215,7 +216,7 @@ public class AdvPools {
      * 往Banner失败池添加失败的广告
      * @param bannerAdvEntity
      */
-    public static void setBannerFailPool(AdvEntity bannerAdvEntity) {
+    protected static void setBannerFailPool(AdvEntity bannerAdvEntity) {
         boolean isContains = false;
         if(bannerFailPool.size()>0){
             for(int i = 0;i<bannerFailPool.size();i++){
@@ -231,7 +232,7 @@ public class AdvPools {
      * 往插屏失败池添加失败的广告
      * @param cpAdvEntity
      */
-    public static void setCpFailPool(AdvEntity cpAdvEntity) {
+    protected static void setCpFailPool(AdvEntity cpAdvEntity) {
         boolean isContains = false;
         if(cpFailPool.size()>0){
             for(int i = 0;i<cpFailPool.size();i++){
@@ -247,7 +248,7 @@ public class AdvPools {
      * 往开屏失败池添加失败的广告
      * @param spashAdvEntity
      */
-    public static void setSplashFailPool(AdvEntity spashAdvEntity) {
+    protected static void setSplashFailPool(AdvEntity spashAdvEntity) {
         boolean isContains = false;
         if(splashFailPool.size()>0){
             for(int i = 0;i<splashFailPool.size();i++){
@@ -264,7 +265,7 @@ public class AdvPools {
      * 往视频失败池添加失败的广告
      * @param videoAdvEntity
      */
-    public static void setVideoFailPool(AdvEntity videoAdvEntity) {
+    protected static void setVideoFailPool(AdvEntity videoAdvEntity) {
         boolean isContains = false;
         if(videoFailPool.size()>0){
             for(int i = 0;i<videoFailPool.size();i++){
@@ -277,23 +278,23 @@ public class AdvPools {
         if(!isContains)videoFailPool.add(videoAdvEntity);//不存在,则添加
     }
 
-    public static List<AdvEntity> getAdvAllFials() {
+    protected static List<AdvEntity> getAdvAllFials() {
         return advAllFials;
     }
 
-    public static List<AdvEntity> getBannerFailPool() {
+    protected static List<AdvEntity> getBannerFailPool() {
         return bannerFailPool;
     }
 
-    public static List<AdvEntity> getCpFailPool() {
+    protected static List<AdvEntity> getCpFailPool() {
         return cpFailPool;
     }
 
-    public static List<AdvEntity> getSplashFailPool() {
+    protected static List<AdvEntity> getSplashFailPool() {
         return splashFailPool;
     }
 
-    public static List<AdvEntity> getVideoFailPool() {
+    protected static List<AdvEntity> getVideoFailPool() {
         return videoFailPool;
     }
 
@@ -301,7 +302,7 @@ public class AdvPools {
      * 清空失败池
      * 当广告显示出来之后再执行此函数
      */
-    public void clearFailPool(){
+    protected void clearFailPool(){
         if(null!=advAllFials&&advAllFials.size()>0) advAllFials.clear();
         if(null!=bannerFailPool&&bannerFailPool.size()>0) bannerFailPool.clear();
         if(null!=cpFailPool&&cpFailPool.size()>0) cpFailPool.clear();
@@ -309,6 +310,43 @@ public class AdvPools {
         if(null!=videoFailPool&&videoFailPool.size()>0) videoFailPool.clear();
     }
 
+    /**
+     * 测试函数
+     * @param args
+     */
+    public static void main(String [] args){
+        AdvRandom cMathRandom = new AdvRandom();
+        //D:\Studio\APP\app\src\main\assets
+        String path = "D://Studio//APP//app//src//main//assets//AdvData.json";
+        String str = FileTools.getDataFile(path);
+        AdvData advData = GsonUtils.josnToModule(str,AdvData.class);
+        System.out.println("应用名称："+advData.getAppName());
+        int sucess = 2; //测试指定加载那个联盟的什么广告
+        for(int i=0;i<8;i++){
+            //拿到过滤后的需要展示广告集合
+            List<AdvEntity> advEntities = AdvPools.checkAdvEntity(0, advData.getAllAdvs());
+            //从过滤后的广告里面随机一个
+            AdvEntity advEntity = cMathRandom.randomAdv(advEntities);
+            if(null==advEntity){
+                System.out.println("加载所以广告失败,结束循环!");
+                break;
+            }else{
+                System.out.println("加载："+advEntity.getAdvName()+"");
+                break;
+            }
+
+            /*if(i==sucess){
+                System.out.println("加载："+advEntity.getAdvName()+"---成功,结束循环！");
+                break;
+            }else{
+                System.out.println("加载："+advEntity.getAdvName()+"---失败");
+                AdvPools.setAdvFailAlls(advEntity);//添加至失败池
+            }*/
+        }
+
+
+
+    }
 
 }
 

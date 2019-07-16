@@ -94,7 +94,8 @@ public class SplashActivity extends AppCompatActivity {
     }
     @PermissionFail(requestCode = PHOTO_PERMISS)
     public void requestPhotoFail() {
-            goToSetting(this);
+        //失败之后的处理
+        goToSetting(this);
     }
 
     /***

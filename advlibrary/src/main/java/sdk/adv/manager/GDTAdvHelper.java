@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import com.qq.e.ads.banner.ADSize;
 import com.qq.e.ads.banner.AbstractBannerADListener;
 import com.qq.e.ads.banner.BannerView;
+import com.qq.e.ads.banner2.UnifiedBannerADListener;
+import com.qq.e.ads.banner2.UnifiedBannerView;
 import com.qq.e.ads.interstitial2.UnifiedInterstitialAD;
 import com.qq.e.ads.interstitial2.UnifiedInterstitialADListener;
 import com.qq.e.ads.rewardvideo.RewardVideoAD;
@@ -14,6 +16,7 @@ import com.qq.e.ads.rewardvideo.RewardVideoADListener;
 import com.qq.e.ads.splash.SplashAD;
 import com.qq.e.ads.splash.SplashADListener;
 import com.qq.e.comm.util.AdError;
+import com.ssp.sdk.platform.show.PRewardVideo;
 
 import sdk.adv.AdvConstant;
 import sdk.adv.interfaces.OnSuccessListener;
@@ -43,24 +46,43 @@ public class GDTAdvHelper {
             return;
         }
         viewGroup.removeAllViews();
-        BannerView banner = new BannerView(activity, ADSize.BANNER, appID, posID);
-        //设置广告轮播时间，为0或30~120之间的数字，单位为s,0标识不自动轮播
-        banner.setRefresh(20);
-        banner.setVisibility(View.VISIBLE);
-        viewGroup.addView(banner);
-//        banner.setShowClose(false;);//设置是否展示关闭按钮,默认不展示
-        banner.setADListener(new AbstractBannerADListener() {
+//        BannerView banner = new BannerView(activity, ADSize.BANNER, appID, posID);
+        UnifiedBannerView banner = new UnifiedBannerView(activity, appID, posID,new UnifiedBannerADListener(){
             @Override
             public void onNoAD(AdError adError) {
                 Lo.e("广点通Banner广告加载失败,错误码:"+adError.getErrorCode()+"错误信息："+adError.getErrorMsg());
                 if(listener!=null)listener.onFail(AdvConstant.GDT_TYPE);
             }
             @Override
-            public void onADReceiv() {
+            public void onADReceive() {
                 //加载成功
-                if(listener!=null)listener.onComplete(AdvConstant.GDT_TYPE,0,true);
+                Lo.e("广点通Banner广告加载成功");
+            }
+            @Override
+            public void onADExposure() {
+            }
+            @Override
+            public void onADClosed() {
+            }
+            @Override
+            public void onADClicked() {
+            }
+            @Override
+            public void onADLeftApplication() {
+            }
+            @Override
+            public void onADOpenOverlay() {
+            }
+            @Override
+            public void onADCloseOverlay() {
             }
         });
+
+        //设置广告轮播时间，为0或30~120之间的数字，单位为s,0标识不自动轮播
+        banner.setRefresh(20);
+        banner.setVisibility(View.VISIBLE);
+        viewGroup.addView(banner);
+//        banner.setShowClose(false;);//设置是否展示关闭按钮,默认不展示
         banner.loadAD();
     }
 
@@ -194,7 +216,7 @@ public class GDTAdvHelper {
             if(listener!=null)listener.onFail(AdvConstant.GDT_VIDEO_TYPE);//失败回调
             return;
         }
-
+//        PRewardVideo rewardVideo = new PRewardVideo();
         rewardVideoAD = new RewardVideoAD(activity, appID, posID, new RewardVideoADListener() {
             //广告加载成功，可在此回调后进行广告展示
             @Override

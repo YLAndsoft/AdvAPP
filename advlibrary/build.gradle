@@ -25,25 +25,32 @@ android {
         flatDir {
             dirs '../advlibrary/libs','libs'
         }
-    }
 
+    }
 
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
-
+    api fileTree(include: ['*.jar'], dir: 'libs')
     api 'com.android.support:appcompat-v7:27.1.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
     api 'com.google.code.gson:gson:2.8.5'
     /**xutils3*/
     api 'org.xutils:xutils:3.5.0'
-
+    //不将第三方jar包打入aar中
+    /*穿山甲*/
     api(name: 'open_ad_sdk', ext: 'aar')
     api 'pl.droidsonroids.gif:android-gif-drawable:1.2.6'
+    /*广点通*/
     api files('libs/GDTSDK.union.4.40.910.jar')
     api files('libs/android-query-full.0.26.7.jar')
+    //权限
+    api 'com.lovedise:permissiongen:0.0.6'
+    //    api files('libs/gson-2.8.5.jar')
+    /*链咖媒体*/
+    implementation 'com.android.support:support-core-utils:28.0.0'
+    api(name: 'lksdk-1.0', ext: 'aar')
+    implementation files('libs/adsdk_v3.6.jar')
 }

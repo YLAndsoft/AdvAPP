@@ -1,0 +1,49 @@
+
+{"bannerAdvs":[
+{"advType":11,"advRatio":50,"advName":"穿山甲Banner广告"},
+{"advType":22,"advRatio":50,"advName":"广点通Banner广告"}],
+"cpAdvs":[
+{"advType":11,"advRatio":50,"advName":"穿山甲插屏广告"},
+{"advType":22,"advRatio":50,"advName":"广点通插屏广告"}],
+"splashAdvs":[
+{"advType":11,"advRatio":0,"advName":"穿山甲开屏广告"},
+{"advType":22,"advRatio":100,"advName":"广点通开屏广告"}],
+"videoAdvs":[
+  {"advType":33,"advRatio":100,"advName":"精众视频广告"},
+  {"advType":22,"advRatio":0,"advName":"广点通视频广告"},
+  {"advType":44,"advRatio":0,"advName":"链咖视频广告"},
+  {"advType":11,"advRatio":0,"advName":"穿山甲视频广告"}
+],
+"allAdvs":[
+  {"advType":1,"advRatio":0,"advName":"穿山甲视频广告"},
+  {"advType":4,"advRatio":0,"advName":"广点通视频广告"},
+  {"advType":7,"advRatio":0,"advName":"精众视频广告"},
+  {"advType":8,"advRatio":100,"advName":"链咖视频广告"},
+  {"advType":2,"advRatio":0,"advName":"穿山甲开屏广告"},
+  {"advType":5,"advRatio":0,"advName":"广点通开屏广告"},
+  {"advType":3,"advRatio":0,"advName":"穿山甲插屏广告"},
+  {"advType":6,"advRatio":0,"advName":"广点通插屏广告"}
+]
+,"advID":{
+  "csj_appID":"5019722",
+  "csj_bannerID":"919722591",
+  "csj_cpID":"919722786",
+  "csj_splashID":"819722380",
+  "csj_videoID":"919722997",
+
+  "gdt_appID":"1108967774",
+  "gdt_bannerID":"1000866632372105",
+  "gdt_cpID":"9050963632675168",
+  "gdt_splashID":"5080262484266590",
+  "gdt_videoID":"6000625736289442",
+
+  "jz_appID":"1540623508",
+  "jz_posID":"1561692800",
+
+  "lk_appID":"205",
+  "lk_appKey":"ea591PSDCQW44ekGvdc8Qtytm3MjFS8_olpyczxEwleFlhPjmg",
+  "adPosId":"314"
+  },
+  "appName":"人猫人狗交流翻译器",
+  "packageName":"hms.bbps.tmans"
+}

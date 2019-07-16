@@ -74,7 +74,7 @@ public class CSJAdvHelper {
                     }
                 });
                 ttRewardVideoAd.showRewardVideoAd(activity);
-                Lo.i("穿山甲视频广告加载成功！");
+//                Lo.i("穿山甲视频广告加载成功！");
             }
             @Override
             public void onRewardVideoCached() {
@@ -190,7 +190,7 @@ public class CSJAdvHelper {
     public static void loadCSJBannerAdv(Context mContext, final String bannerID, final FrameLayout mBannerContainer, final OnSuccessListener listener){
         AdSlot adSlot = CsjAdvManager.getAdSlot(bannerID,600,90);
         if(adSlot==null){
-            Lo.i("请检查kpID是否有效！！！");
+            Lo.e("请检查kpID是否有效！！！");
             if(listener!=null){listener.onFail(AdvConstant.CSJ_TYPE);}
             return;
         }
@@ -216,7 +216,5 @@ public class CSJAdvHelper {
             }
         });
     }
-
-
 
 }

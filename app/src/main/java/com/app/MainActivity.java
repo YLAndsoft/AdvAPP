@@ -3,18 +3,21 @@ package com.app;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import sdk.adv.entity.AdvEntity;
+import com.ssp.sdk.adInterface.AdListener;
+import com.ssp.sdk.adInterface.RewardVideoListener;
+import com.ssp.sdk.platform.show.PRewardVideo;
+
 import sdk.adv.execute.AdvExecute;
-import sdk.adv.execute.AdvPools;
-import sdk.adv.tools.XutilsHttp;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button all_adv,banner_adv,cp_adv,splash_adv,video_adv;
+    private Button all_adv,banner_adv,cp_adv,splash_adv,video_adv,btn1,btn2;
     private FrameLayout frame,banner_frame;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +33,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cp_adv = findViewById(R.id.cp_adv);
         splash_adv = findViewById(R.id.splash_adv);
         frame = findViewById(R.id.frame);
+        btn1 = findViewById(R.id.btn1);
+        btn2 = findViewById(R.id.btn2);
         banner_frame = findViewById(R.id.banner_frame);
 
         all_adv.setOnClickListener(this);
+        btn1.setOnClickListener(this);
+        btn2.setOnClickListener(this);
         video_adv.setOnClickListener(this);
         banner_adv.setOnClickListener(this);
         cp_adv.setOnClickListener(this);
@@ -90,9 +97,79 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 });
                 break;
+            case R.id.btn1:
+                loadRewardVideo();
+                break;
+            case R.id.btn2:
+                showRewardVideo();
+                break;
 
 
         }
+    }
+
+    // 测试
+    public final static String APP_ID = "1540623508";
+    public final static String REWARDVIDEO_POSID = "1561692800";
+    private PRewardVideo pRewardVideo;
+    private void loadRewardVideo() {
+        String appID = APP_ID;
+        String posID = REWARDVIDEO_POSID;
+        pRewardVideo = new PRewardVideo(this, appID, posID, new AdListener() {
+            @Override
+            public void onLoadFail(int code, String message) {
+                Toast.makeText(MainActivity.this,"onLoadFail code=" + code + ";message=" + message,Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onLoadSuccess() {
+                Toast.makeText(MainActivity.this,"视频加载成功",Toast.LENGTH_SHORT).show();
+//                ActivityRewardVideo.this.showAdBtn.setEnabled(true);
+            }
+            @Override
+            public void onAdOpen() {
+            }
+            @Override
+            public void onAdClick() {
+            }
+            @Override
+            public void onAdClose() {
+
+            }
+        });
+        pRewardVideo.loadAd();
+    }
+
+    private void showRewardVideo() {
+        pRewardVideo.showAd(new RewardVideoListener() {
+            @Override
+            public void onVideoShow() {
+                Toast.makeText(MainActivity.this,"onVideoShow",Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onVideoClick() {
+//                        Toast.makeText(ActivityTest.this,"onVideoClick",Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onVideoBarClick() {
+                Toast.makeText(MainActivity.this,"onVideoBarClick",Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onVideoClose() {
+                Toast.makeText(MainActivity.this,"onVideoClose",Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onVideoComplete() {
+                Toast.makeText(MainActivity.this,"onVideoComplete",Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onVideoError(int code, String message) {
+                Toast.makeText(MainActivity.this,"onVideoError",Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onVideoVerify(boolean verify, int amount, String name) {
+                Toast.makeText(MainActivity.this,"onVideoVerify",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
