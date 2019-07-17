@@ -37,8 +37,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     api 'com.google.code.gson:gson:2.8.5'
-    /**xutils3*/
-    api 'org.xutils:xutils:3.5.0'
+
     //不将第三方jar包打入aar中
     /*穿山甲*/
     api(name: 'open_ad_sdk', ext: 'aar')

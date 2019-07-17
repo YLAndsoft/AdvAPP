@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <files-path    name="ad_files_path" path = "ad/apk/DownLoadAPP" />
+    <external-path name="ad_external_path" path = "ad/apk/DownLoadAPP" />
+  </paths>
+</resources>

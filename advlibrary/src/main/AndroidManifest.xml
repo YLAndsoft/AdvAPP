@@ -45,6 +45,25 @@
             android:name="com.bytedance.sdk.openadsdk.multipro.TTMultiProvider"
             android:authorities="${applicationId}.TTMultiProvider"
             android:exported="false" />
+        <!--链咖provider-->
+        <provider
+            android:name="com.lkvideo.sdk.utils.LKFileProvider"
+            android:authorities="${applicationId}.fclkfileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/kd_file_paths" />
+
+        </provider>
+        <!--精众provider-->
+        <provider android:name="com.ssp.sdk.platform.utils.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/ad_file_path" />
+        </provider>
 
         <!--广点通相关-->
         <uses-library
@@ -77,36 +96,12 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/KDDownCancelDialog" />
-
-        <!--<provider
-            android:name="com.lkvideo.sdk.utils.LKFileProvider"
-            android:authorities="${applicationId}.fclkfileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            &lt;!&ndash;<meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/kd_file_paths" />  &ndash;&gt;
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>-->
         <service
             android:name="com.lkvideo.sdk.utils.DownloadService"
             android:exported="false"/>
-
         <!-- LKVideoSDK 组件声明end -->
 
         <!--精众SDK-->
-        <provider android:name="com.ssp.sdk.platform.utils.FileProvider"
-            android:authorities="${applicationId}.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
-        <!--<activity android:name="com.ssp.sdk.platform.ui.MActivity"/>-->
-
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
         <activity  android:name="com.ssp.sdk.platform.show.ActivityVideo"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <service android:name="com.ssp.sdk.platform.service.MService" />
