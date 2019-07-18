@@ -34,15 +34,15 @@ public class AdvPools {
         return advPool;
     }
     /***
-     * 获取Banner广告实体
+     * 获取所有广告实体
      * @return
      */
     public AdvEntity getAllAdv(){
         List<AdvEntity> entities = getAdvEntitys(0);
         if(null==entities||entities.size()<=0)return null;
-        List<AdvEntity> newList = checkAdvEntity(0,entities);
+        List<AdvEntity> newList = checkAdvEntity(0,entities);//过滤已经加载失败的广告
         if(null==newList||newList.size()<=0)return null;
-        AdvEntity advEntity = AdvRandom.randomAdv(newList);
+        AdvEntity advEntity = AdvRandom.randomAdv(newList,advAllFials);
         return advEntity;
     }
 
@@ -57,7 +57,7 @@ public class AdvPools {
         if(null==newList||newList.size()<=0){
             return null;
         }
-        AdvEntity advEntity = AdvRandom.randomAdv(newList);
+        AdvEntity advEntity = AdvRandom.randomAdv(newList,bannerFailPool);
         return advEntity;
     }
     /***
@@ -68,7 +68,7 @@ public class AdvPools {
         List<AdvEntity> entities = getAdvEntitys(2);
         if(null==entities||entities.size()<=0)return null;
         List<AdvEntity> newList = checkAdvEntity(2,entities);
-        AdvEntity advEntity = AdvRandom.randomAdv(newList);
+        AdvEntity advEntity = AdvRandom.randomAdv(newList,cpFailPool);
         return advEntity;
     }
     /***
@@ -80,7 +80,7 @@ public class AdvPools {
         List<AdvEntity> entities = getAdvEntitys(3);
         if(null==entities||entities.size()<=0)return null;
         List<AdvEntity> newList = checkAdvEntity(3,entities);
-        AdvEntity advEntity = AdvRandom.randomAdv(newList);
+        AdvEntity advEntity = AdvRandom.randomAdv(newList,splashFailPool);
         return advEntity;
     }
 
@@ -93,7 +93,7 @@ public class AdvPools {
         List<AdvEntity> entities = getAdvEntitys(4);
         if(null==entities||entities.size()<=0)return null;
         List<AdvEntity> newList = checkAdvEntity(4,entities);
-        AdvEntity advEntity = AdvRandom.randomAdv(newList);
+        AdvEntity advEntity = AdvRandom.randomAdv(newList,videoFailPool);
         return advEntity;
     }
 
@@ -326,7 +326,7 @@ public class AdvPools {
             //拿到过滤后的需要展示广告集合
             List<AdvEntity> advEntities = AdvPools.checkAdvEntity(0, advData.getAllAdvs());
             //从过滤后的广告里面随机一个
-            AdvEntity advEntity = cMathRandom.randomAdv(advEntities);
+            AdvEntity advEntity = cMathRandom.randomAdv(advEntities,null);
             if(null==advEntity){
                 System.out.println("加载所以广告失败,结束循环!");
                 break;
