@@ -23,6 +23,7 @@ public class AdvRandom {
      */
     private static int checkRatio(List<AdvEntity> prob) {
         int count= 0 ;
+        if(null==prob||prob.size()<=0)return count;
         for(AdvEntity i : prob){
             count = count + i.getAdvRatio();
         }
@@ -35,12 +36,18 @@ public class AdvRandom {
      * @return 返回得到的广告
      * TODO 如果加载失败的广告,记得添加至失败池里面
      */
-    public static AdvEntity randomAdv(List<AdvEntity> probability) {
+    public static AdvEntity randomAdv(List<AdvEntity> probability,List<AdvEntity> failList) {
         if(null==probability||probability.size()<=0){return null;}
-        int ratioCount = checkRatio(probability);//百分比总和
+        int ratioCount = checkRatio(probability);//未加载失败的广告百分比总和
+        int yratioCount = checkRatio(failList);//已加载失败的广告百分比总和
         if(ratioCount<=0){
             //如果所有广告的比率都为0，那么直接返回列表第一个，
             // tips:没做排重,当返回的广告加载失败,记得添加到广告池
+            if(yratioCount>0){
+                //失败广告池配置广告的比率大于0的话，
+                // 说明有配置比率的广告已经加载失败,那么就不去加载配置为0的广告
+                return null;
+            }
             return probability.get(0);
         }
         AdvEntity advEntity = null;
@@ -71,7 +78,7 @@ public class AdvRandom {
             map.put(countts.get(i).getAdvType(),0);
         }
         for(int i = 0 ; i < 1000 ; i ++) {
-            AdvEntity advEntity = cMathRandom.randomAdv(countts);
+            AdvEntity advEntity = cMathRandom.randomAdv(countts,null);
             if(advEntity==null){
                 System.out.println("错误数据：");
                 return;
