@@ -44,12 +44,14 @@ public class AdvExecute {
      * @param gold        奖励的金币
      * @param listener
      * @TODO 参数说明：
-     * 穿山甲视频广告：	0
-     * 穿山甲开屏广告:		1
-     * 穿山甲插屏广告:		2
-     * 广点通视频广告:		3
-     * 广点通开屏广告:		4
-     * 广点通插屏广告:		5
+     * 穿山甲视频广告：	1
+     * 穿山甲开屏广告:		2
+     * 穿山甲插屏广告:		3
+     * 广点通视频广告:		4
+     * 广点通开屏广告:		5
+     * 广点通插屏广告:		6
+     * 精众视频广告:		7
+     * 链咖视频广告:		8
      */
     public void execute(Activity activity, FrameLayout frameLayout, int gold, OnCompleteListener listener) {
 //        if(isNull(config)){
@@ -85,6 +87,7 @@ public class AdvExecute {
                 openGDTCPAdv(advEntity,activity, frameLayout, gold, true, listener);
                 break;
             case 7: //精众视频
+                openJZVideoAdv(advEntity,activity, frameLayout, gold, true, listener);
                 break;
             case 8: //链咖视频
                 openLKVideoAdv(advEntity,activity, frameLayout, gold, true, listener);
@@ -596,5 +599,6 @@ public class AdvExecute {
         });
 
     }
+
 
 }
