@@ -9,9 +9,9 @@
 {"advType":11,"advRatio":0,"advName":"穿山甲开屏广告"},
 {"advType":22,"advRatio":100,"advName":"广点通开屏广告"}],
 "videoAdvs":[
-  {"advType":33,"advRatio":100,"advName":"精众视频广告"},
+  {"advType":33,"advRatio":50,"advName":"精众视频广告"},
   {"advType":22,"advRatio":0,"advName":"广点通视频广告"},
-  {"advType":44,"advRatio":0,"advName":"链咖视频广告"},
+  {"advType":44,"advRatio":50,"advName":"链咖视频广告"},
   {"advType":11,"advRatio":0,"advName":"穿山甲视频广告"}
 ],
 "allAdvs":[
@@ -37,8 +37,8 @@
   "gdt_splashID":"5080262484266590",
   "gdt_videoID":"6000625736289442",
 
-  "jz_appID":"1540623508",
-  "jz_posID":"1561692800",
+  "jz_appID":"1563414494",
+  "jz_posID":"1563414565",
 
   "lk_appID":"205",
   "lk_appKey":"ea591PSDCQW44ekGvdc8Qtytm3MjFS8_olpyczxEwleFlhPjmg",

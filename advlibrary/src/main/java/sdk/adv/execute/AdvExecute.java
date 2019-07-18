@@ -62,6 +62,7 @@ public class AdvExecute {
         AdvEntity advEntity = AdvPools.getAdvPool(activity).getAllAdv();
         if(null==advEntity){
             Lo.e("广告全部失效!");
+            AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
             listener.onComplete(0,true);
             return;
         }
@@ -115,6 +116,7 @@ public class AdvExecute {
         final AdvEntity advEntity = AdvPools.getAdvPool(activity).getBannerAdv();
         if(null==advEntity){
             Lo.e("Banner广告全部失效!");
+            AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
             listener.onComplete(0,true);
             return;
         }
@@ -165,6 +167,7 @@ public class AdvExecute {
         final AdvEntity advEntity = AdvPools.getAdvPool(activity).getCPAdv();
         if(null==advEntity){
             Lo.e("插屏广告全部失效!");
+            AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
             listener.onComplete(0,true);
             return;
         }
@@ -216,6 +219,7 @@ public class AdvExecute {
         final AdvEntity advEntity = AdvPools.getAdvPool(activity).getSpashAdv();
         if(null==advEntity){
             Lo.e("开屏广告全部失效!");
+            AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
             listener.onComplete(0,true);
             return;
         }
@@ -266,6 +270,7 @@ public class AdvExecute {
         final AdvEntity advEntity = AdvPools.getAdvPool(activity).getVideoAdv();
         if(null==advEntity){
             Lo.e("视频广告全部失效!");
+            AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
             if(null!=listener)listener.onComplete(0,true);
             return;
         }

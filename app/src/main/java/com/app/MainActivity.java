@@ -109,8 +109,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     // 测试
-    public final static String APP_ID = "1540623508";
-    public final static String REWARDVIDEO_POSID = "1561692800";
+    /*"jz_appID":"1540623508",
+  "jz_posID":"1561692800",*/
+    public final static String APP_ID = "1563414494";
+    public final static String REWARDVIDEO_POSID = "1563414565";
     private PRewardVideo pRewardVideo;
     private void loadRewardVideo() {
         String appID = APP_ID;
