@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.all_adv:
-                AdvExecute.create().execute(MainActivity.this, frame, 100, new AdvExecute.OnCompleteListener() {
+                AdvExecute.create().execute(MainActivity.this, 100, new AdvExecute.OnCompleteListener() {
                     @Override
                     public void onComplete(int gold, boolean isNormal) {
                         if(isNormal){
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 });
                 break;
             case R.id.splash_adv:
-                AdvExecute.create().executeSplashAdv(this, frame, new AdvExecute.OnCompleteListener() {
+                AdvExecute.create().executeSplashAdv(this, new AdvExecute.OnCompleteListener() {
                     @Override
                     public void onComplete(int gold, boolean isNormal) {
                         showToast("开屏广告加载成功！！");

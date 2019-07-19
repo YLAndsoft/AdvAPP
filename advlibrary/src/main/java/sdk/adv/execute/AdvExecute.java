@@ -12,6 +12,7 @@ import sdk.adv.manager.GDTAdvHelper;
 import sdk.adv.manager.JZAdvHelper;
 import sdk.adv.manager.LKAdvHelper;
 import sdk.adv.manager.Lo;
+import sdk.adv.ui.SPAdDialog;
 
 
 /**
@@ -40,7 +41,6 @@ public class AdvExecute {
     /**
      * 广告:所有广告
      * @param activity    当前需要展示的activity
-     * @param frameLayout 开屏广告的父容器
      * @param gold        奖励的金币
      * @param listener
      * @TODO 参数说明：
@@ -53,7 +53,7 @@ public class AdvExecute {
      * 精众视频广告:		7
      * 链咖视频广告:		8
      */
-    public void execute(Activity activity, FrameLayout frameLayout, int gold, OnCompleteListener listener) {
+    public void execute(Activity activity, int gold, OnCompleteListener listener) {
 //        if(isNull(config)){
 //            Lo.e("配置文件为空,不加载广告！");
 ////            if(null!=listener)listener.onComplete(0,false);
@@ -69,29 +69,37 @@ public class AdvExecute {
         Lo.i("展示广告type：" + advEntity.getAdvType());
         switch (advEntity.getAdvType()) {
             case 1: //穿山甲视频
-                openCSJVideo(advEntity,activity, frameLayout, gold, true, listener);
+//                openCSJVideo(advEntity,activity, frameLayout, gold, true, listener);
+                openCSJVideo(advEntity,activity, gold, true, listener);
                 break;
             case 2: //穿山甲开屏
-                openCSJKPAdv(advEntity,activity, frameLayout, gold, true, listener);
+//                openCSJKPAdv(advEntity,activity, frameLayout, gold, true, listener);
+                openCSJKPAdv(advEntity,activity, gold, true, listener);
                 break;
             case 3: //穿山甲插屏
-                openCSJCPAdv(advEntity,activity, frameLayout, gold, true, listener);
+//                openCSJCPAdv(advEntity,activity, frameLayout, gold, true, listener);
+                openCSJCPAdv(advEntity,activity, gold, true, listener);
                 break;
             case 4: //广点通视频
 //                Lo.e("广点通的视频广告暂未开通!");
-                openGDTVideoAdv(advEntity,activity, frameLayout, gold, true, listener);
+//                openGDTVideoAdv(advEntity,activity, frameLayout, gold, true, listener);
+                openGDTVideoAdv(advEntity,activity, gold, true, listener);
                 break;
             case 5: //广点通开屏
-                openGDTSplashAD(advEntity,activity, frameLayout, gold, true, listener);
+//                openGDTSplashAD(advEntity,activity, frameLayout, gold, true, listener);
+                openGDTSplashAD(advEntity,activity, gold, true, listener);
                 break;
             case 6: //广点通插屏
-                openGDTCPAdv(advEntity,activity, frameLayout, gold, true, listener);
+//                openGDTCPAdv(advEntity,activity, frameLayout, gold, true, listener);
+                openGDTCPAdv(advEntity,activity, gold, true, listener);
                 break;
             case 7: //精众视频
-                openJZVideoAdv(advEntity,activity, frameLayout, gold, true, listener);
+                openJZVideoAdv(advEntity,activity, gold, true, listener);
+//                openJZVideoAdv(advEntity,activity, frameLayout, gold, true, listener);
                 break;
             case 8: //链咖视频
-                openLKVideoAdv(advEntity,activity, frameLayout, gold, true, listener);
+                openLKVideoAdv(advEntity,activity, gold, true, listener);
+//                openLKVideoAdv(advEntity,activity, frameLayout, gold, true, listener);
                 break;
             default:
                 //没有广告展示，直接返回
@@ -204,6 +212,41 @@ public class AdvExecute {
         }
     }
 
+    private SPAdDialog spAdDialog;
+    public void executeSplashAdv(final Activity activity, final OnCompleteListener listener){
+        if(isNull(config)){
+            Lo.e("配置文件为空,不加载广告！");
+            if(null!=listener)listener.onComplete(0,false);
+            return;
+        }
+        final AdvEntity advEntity = AdvPools.getAdvPool(activity).getSpashAdv();
+        if(null==advEntity){
+            Lo.e("开屏广告全部失效!");
+            if(null!=spAdDialog&&spAdDialog.isShowing())spAdDialog.dismiss();
+            AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
+            listener.onComplete(0,true);
+            return;
+        }
+        spAdDialog = new SPAdDialog(activity);
+        spAdDialog.setOnCompleteListener(new SPAdDialog.OnCompleteListener() {
+            @Override
+            public void onComplete(int gold, boolean isNormal) {
+                AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
+                if(listener!=null)listener.onComplete(gold,isNormal);
+                if(null!=spAdDialog&&spAdDialog.isShowing())spAdDialog.dismiss();
+            }
+            @Override
+            public void onFail() {
+                AdvPools.getAdvPool(activity).setSplashFailPool(advEntity);
+                executeSplashAdv(activity,listener);
+            }
+        });
+        if(advEntity.getAdvType()==AdvConstant.CSJ_TYPE){
+            spAdDialog.showDialog(AdvConstant.CSJ_TYPE,0,config);
+        }else if(advEntity.getAdvType()==AdvConstant.GDT_TYPE){
+            spAdDialog.showDialog(AdvConstant.GDT_TYPE,0,config);
+        }
+    }
     /***
      * 执行加载所有开屏广告
      * @param activity
@@ -343,12 +386,11 @@ public class AdvExecute {
     /**
      * 打开穿山甲视频广告
      * @param activity
-     * @param frameLayout
      * @param gold
      * @param isLoop
      * @param listener
      */
-    public void openCSJVideo(final AdvEntity advEntity, final Activity activity, final FrameLayout frameLayout, final int gold, final boolean isLoop, final OnCompleteListener listener) {
+    public void openCSJVideo(final AdvEntity advEntity, final Activity activity, final int gold, final boolean isLoop, final OnCompleteListener listener) {
         if(isNull(config)){
             Lo.e("配置文件为空,不加载广告！");
 //            if(null!=listener)listener.onComplete(gold,false);
@@ -365,7 +407,7 @@ public class AdvExecute {
             public void onFail(int type) {
                 if (isLoop) {
                     AdvPools.getAdvPool(activity).setVideoFailPool(advEntity);
-                    execute(activity, frameLayout, gold, listener);
+                    execute(activity, gold, listener);
                 }else{
                     if(listener!=null)listener.onComplete(gold,false);
                 }
@@ -381,7 +423,7 @@ public class AdvExecute {
      * @param isLoop
      * @param listener
      */
-    public void openCSJKPAdv(final AdvEntity advEntity,final Activity activity, final FrameLayout frameLayout, final int gold, final boolean isLoop, final OnCompleteListener listener) {
+    public void openCSJKPAdv(final Activity activity, final FrameLayout frameLayout, final int gold, final boolean isLoop, final OnCompleteListener listener) {
         if(isNull(config)){
             Lo.e("配置文件为空,不加载广告！");
 //            if(listener!=null)listener.onComplete(gold,false);
@@ -396,25 +438,54 @@ public class AdvExecute {
             }
             @Override
             public void onFail(int type) {
+                AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
+                if(listener!=null)listener.onComplete(gold,false);
+            }
+        });
+    }
+    /**
+     * 打开穿山甲开屏广告
+     * @param activity
+     * @param isLoop
+     * @param listener
+     */
+    public void openCSJKPAdv(final AdvEntity advEntity,final Activity activity, final int gold, final boolean isLoop, final OnCompleteListener listener) {
+        if(isNull(config)){
+            Lo.e("配置文件为空,不加载广告！");
+//            if(listener!=null)listener.onComplete(gold,false);
+            return;
+        }
+        spAdDialog = new SPAdDialog(activity);
+        spAdDialog.setOnCompleteListener(new SPAdDialog.OnCompleteListener() {
+            @Override
+            public void onComplete(int gold, boolean isNormal) {
+                AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
+                if(listener!=null)listener.onComplete(gold,isNormal);
+                if(null!=spAdDialog&&spAdDialog.isShowing())spAdDialog.dismiss();
+            }
+            @Override
+            public void onFail() {
                 if (isLoop) {
                     AdvPools.getAdvPool(activity).setSplashFailPool(advEntity);
-                    execute(activity, frameLayout, gold, listener);
+                    execute(activity, gold, listener);
                 }else{
                     if(listener!=null)listener.onComplete(gold,false);
                 }
             }
         });
+        spAdDialog.showDialog(AdvConstant.CSJ_TYPE,0,config);
+
     }
 
     /***
      * 打开穿山甲插屏广告
      * @param activity
-     * @param frameLayout
+     * @param
      * @param gold
      * @param isLoop
      * @param listener
      */
-    public void openCSJCPAdv(final AdvEntity advEntity,final Activity activity, final FrameLayout frameLayout, final int gold, final boolean isLoop, final OnCompleteListener listener) {
+    public void openCSJCPAdv(final AdvEntity advEntity,final Activity activity  , final int gold, final boolean isLoop, final OnCompleteListener listener) {
         if(isNull(config)){
             Lo.e("配置文件为空,不加载广告！");
 //            if(listener!=null)listener.onComplete(gold,false);
@@ -431,7 +502,7 @@ public class AdvExecute {
             public void onFail(int type) {
                 if (isLoop) {
                     AdvPools.getAdvPool(activity).setCpFailPool(advEntity);
-                    execute(activity, frameLayout, gold, listener);
+                    execute(activity, gold, listener);
                 }else{
                     if(listener!=null)listener.onComplete(gold,false);
                 }
@@ -442,12 +513,12 @@ public class AdvExecute {
     /***
      * 打开广点通视频广告
      * @param activity
-     * @param frameLayout
+     * @param
      * @param gold
      * @param isLoop
      * @param listener
      */
-    public void openGDTVideoAdv(final AdvEntity advEntity,final Activity activity, final FrameLayout frameLayout, final int gold, final boolean isLoop, final OnCompleteListener listener) {
+    public void openGDTVideoAdv(final AdvEntity advEntity,final Activity activity,  final int gold, final boolean isLoop, final OnCompleteListener listener) {
         if(isNull(config)){
             Lo.e("配置文件为空,不加载广告！");
 //            if(listener!=null)listener.onComplete(gold,false);
@@ -464,7 +535,7 @@ public class AdvExecute {
             public void onFail(int type) {
                 if (isLoop) {
                     AdvPools.getAdvPool(activity).setVideoFailPool(advEntity);
-                    execute(activity, frameLayout, gold, listener);
+                    execute(activity, gold, listener);
                 }else{
                     if(listener!=null)listener.onComplete(gold,false);
                 }
@@ -475,12 +546,12 @@ public class AdvExecute {
     /***
      * 打开广点通开屏广告
      * @param activity
-     * @param frameLayout
+     * @param
      * @param gold
      * @param isLoop
      * @param listener
      */
-    public void openGDTSplashAD(final AdvEntity advEntity,final Activity activity, final FrameLayout frameLayout, final int gold, final boolean isLoop, final OnCompleteListener listener) {
+    public void openGDTSplashAD(final Activity activity, final FrameLayout frameLayout, final int gold, final boolean isLoop, final OnCompleteListener listener) {
         if(isNull(config)){
             Lo.e("配置文件为空,不加载广告！");
 //            if(listener!=null)listener.onComplete(gold,false);
@@ -495,25 +566,55 @@ public class AdvExecute {
             }
             @Override
             public void onFail(int type) {
+                AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
+                if(listener!=null)listener.onComplete(gold,false);
+            }
+        });
+    }
+    /***
+     * 打开广点通开屏广告
+     * @param activity
+     * @param gold
+     * @param isLoop
+     * @param listener
+     */
+    public void openGDTSplashAD(final AdvEntity advEntity,final Activity activity,  final int gold, final boolean isLoop, final OnCompleteListener listener) {
+        if(isNull(config)){
+            Lo.e("配置文件为空,不加载广告！");
+//            if(listener!=null)listener.onComplete(gold,false);
+            return;
+        }
+        spAdDialog = new SPAdDialog(activity);
+        spAdDialog.setOnCompleteListener(new SPAdDialog.OnCompleteListener() {
+            @Override
+            public void onComplete(int gold, boolean isNormal) {
+                AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
+                if(listener!=null)listener.onComplete(gold,isNormal);
+                if(null!=spAdDialog&&spAdDialog.isShowing())spAdDialog.dismiss();
+            }
+            @Override
+            public void onFail() {
                 if (isLoop) {
                     AdvPools.getAdvPool(activity).setSplashFailPool(advEntity);
-                    execute(activity, frameLayout, gold, listener);
+                    execute(activity, gold, listener);
                 }else{
                     if(listener!=null)listener.onComplete(gold,false);
                 }
             }
         });
+        spAdDialog.showDialog(AdvConstant.GDT_TYPE,0,config);
+
     }
 
     /***
      * 打开广点通插屏广告
      * @param activity
-     * @param frameLayout
+     * @param
      * @param gold
      * @param isLoop
      * @param listener
      */
-    public void openGDTCPAdv(final AdvEntity advEntity,final Activity activity, final FrameLayout frameLayout, final int gold, final boolean isLoop, final OnCompleteListener listener) {
+    public void openGDTCPAdv(final AdvEntity advEntity,final Activity activity  , final int gold, final boolean isLoop, final OnCompleteListener listener) {
         if(isNull(config)){
             Lo.e("配置文件为空,不加载广告！");
 //            if(listener!=null)listener.onComplete(gold,false);
@@ -530,7 +631,7 @@ public class AdvExecute {
             public void onFail(int type) {
                 if (isLoop) {
                     AdvPools.getAdvPool(activity).setCpFailPool(advEntity);
-                    execute(activity, frameLayout, gold, listener);
+                    execute(activity, gold, listener);
                 }else{
                     if(listener!=null)listener.onComplete(gold,false);
                 }
@@ -541,12 +642,12 @@ public class AdvExecute {
     /***
      * 打开精众视频广告
      * @param activity
-     * @param frameLayout
+     * @param
      * @param gold
      * @param isLoop
      * @param listener
      */
-    public void openJZVideoAdv(final AdvEntity advEntity,final Activity activity, final FrameLayout frameLayout, final int gold, final boolean isLoop, final OnCompleteListener listener) {
+    public void openJZVideoAdv(final AdvEntity advEntity,final Activity activity,  final int gold, final boolean isLoop, final OnCompleteListener listener) {
         if(isNull(config)){
             Lo.e("配置文件为空,不加载广告！");
 //            if(listener!=null)listener.onComplete(gold,false);
@@ -563,7 +664,7 @@ public class AdvExecute {
             public void onFail(int type) {
                 if (isLoop) {
                     AdvPools.getAdvPool(activity).setVideoFailPool(advEntity);
-                    execute(activity, frameLayout, gold, listener);
+                    execute(activity, gold, listener);
                 }else{
                     if(listener!=null)listener.onComplete(gold,false);
                 }
@@ -575,12 +676,12 @@ public class AdvExecute {
      * 打开链咖视频ADV
      * @param advEntity
      * @param activity
-     * @param frameLayout
+     * @param
      * @param gold
      * @param isLoop
      * @param listener
      */
-    public void openLKVideoAdv(final AdvEntity advEntity,final Activity activity,final FrameLayout frameLayout,final int gold, final boolean isLoop, final OnCompleteListener listener){
+    public void openLKVideoAdv(final AdvEntity advEntity,final Activity activity,final int gold, final boolean isLoop, final OnCompleteListener listener){
         if(isNull(config)){
             Lo.e("配置文件为空,不加载广告！");
 //            if(listener!=null)listener.onComplete(gold,false);
@@ -596,7 +697,7 @@ public class AdvExecute {
             public void onFail(int type) {
                 if (isLoop) {
                     AdvPools.getAdvPool(activity).setVideoFailPool(advEntity);
-                    execute(activity, frameLayout, gold, listener);
+                    execute(activity, gold, listener);
                 }else{
                     if(listener!=null)listener.onComplete(gold,false);
                 }

@@ -249,7 +249,7 @@ public class AdvPools {
      * 往开屏失败池添加失败的广告
      * @param spashAdvEntity
      */
-    protected void setSplashFailPool(AdvEntity spashAdvEntity) {
+    public void setSplashFailPool(AdvEntity spashAdvEntity) {
         boolean isContains = false;
         if(splashFailPool.size()>0){
             for(int i = 0;i<splashFailPool.size();i++){
@@ -303,7 +303,7 @@ public class AdvPools {
      * 清空失败池
      * 当广告显示出来之后再执行此函数
      */
-    protected void clearFailPool(){
+    public void clearFailPool(){
         if(null!=advAllFials&&advAllFials.size()>0) advAllFials.clear();
         if(null!=bannerFailPool&&bannerFailPool.size()>0) bannerFailPool.clear();
         if(null!=cpFailPool&&cpFailPool.size()>0) cpFailPool.clear();
