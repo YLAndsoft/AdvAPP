@@ -20,6 +20,7 @@ import com.ssp.sdk.platform.show.PRewardVideo;
 
 import sdk.adv.AdvConstant;
 import sdk.adv.interfaces.OnSuccessListener;
+import sdk.adv.tools.ViewTools;
 
 
 /**
@@ -82,6 +83,7 @@ public class GDTAdvHelper {
         banner.setRefresh(20);
         banner.setVisibility(View.VISIBLE);
         viewGroup.addView(banner);
+//        viewGroup.addView(banner, ViewTools.getUnifiedBannerLayoutParams(activity));
 //        banner.setShowClose(false;);//设置是否展示关闭按钮,默认不展示
         banner.loadAD();
     }

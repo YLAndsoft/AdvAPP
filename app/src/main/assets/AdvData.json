@@ -1,18 +1,21 @@
 
 {"bannerAdvs":[
-{"advType":11,"advRatio":50,"advName":"穿山甲Banner广告"},
-{"advType":22,"advRatio":50,"advName":"广点通Banner广告"}],
+  {"advType":11,"advRatio":0,"advName":"穿山甲Banner广告"},
+  {"advType":22,"advRatio":100,"advName":"广点通Banner广告"}
+],
 "cpAdvs":[
-{"advType":11,"advRatio":50,"advName":"穿山甲插屏广告"},
-{"advType":22,"advRatio":50,"advName":"广点通插屏广告"}],
+  {"advType":11,"advRatio":50,"advName":"穿山甲插屏广告"},
+  {"advType":22,"advRatio":50,"advName":"广点通插屏广告"}
+],
 "splashAdvs":[
-{"advType":11,"advRatio":50,"advName":"穿山甲开屏广告"},
-{"advType":22,"advRatio":50,"advName":"广点通开屏广告"}],
+  {"advType":11,"advRatio":50,"advName":"穿山甲开屏广告"},
+  {"advType":22,"advRatio":50,"advName":"广点通开屏广告"}
+],
 "videoAdvs":[
+  {"advType":11,"advRatio":0,"advName":"穿山甲视频广告"},
   {"advType":33,"advRatio":50,"advName":"精众视频广告"},
   {"advType":22,"advRatio":0,"advName":"广点通视频广告"},
-  {"advType":44,"advRatio":50,"advName":"链咖视频广告"},
-  {"advType":11,"advRatio":0,"advName":"穿山甲视频广告"}
+  {"advType":44,"advRatio":50,"advName":"链咖视频广告"}
 ],
 "allAdvs":[
   {"advType":1,"advRatio":0,"advName":"穿山甲视频广告"},
@@ -25,24 +28,33 @@
   {"advType":6,"advRatio":0,"advName":"广点通插屏广告"}
 ]
 ,"advID":{
-  "csj_appID":"5019722",
-  "csj_bannerID":"919722591",
-  "csj_cpID":"919722786",
-  "csj_splashID":"819722380",
-  "csj_videoID":"919722997",
-
-  "gdt_appID":"1109487323",
-  "gdt_bannerID":"4010767927257280",
-  "gdt_cpID":"2030162937256262",
-  "gdt_splashID":"9080860977550221",
-  "gdt_videoID":"6000625736289442",
-
-  "jz_appID":"1563414494",
-  "jz_posID":"1563414565",
-
-  "lk_appID":"205",
-  "lk_appKey":"ea591PSDCQW44ekGvdc8Qtytm3MjFS8_olpyczxEwleFlhPjmg",
-  "adPosId":"314"
+    "csjAdvID":{
+      "tips":"穿山甲广告相关ID",
+      "csj_appID":"5019722",
+      "csj_bannerID":"919722591",
+      "csj_cpID":"919722786",
+      "csj_splashID":"819722380",
+      "csj_videoID":"919722997"
+    },
+    "gdtAdvID":{
+      "tips":"广点通广告相关ID",
+      "gdt_appID":"1109487323",
+      "gdt_bannerID":"4010767927257280",
+      "gdt_cpID":"2030162937256262",
+      "gdt_splashID":"9080860977550221",
+      "gdt_videoID":"6000625736289442"
+    },
+    "jzAdvID":{
+      "tips":"精众视频广告相关ID",
+      "jz_appID":"1563414494",
+      "jz_posID":"1563414565"
+    },
+    "lkAdvID":{
+      "tips":"链咖广告相关ID",
+      "lk_appID":"205",
+      "lk_appKey":"ea591PSDCQW44ekGvdc8Qtytm3MjFS8_olpyczxEwleFlhPjmg",
+      "lk_posID":"314"
+    }
   },
   "appName":"人猫人狗交流翻译器",
   "packageName":"hms.bbps.tmans"

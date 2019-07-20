@@ -18,7 +18,7 @@ public class MyAppLication extends Application{
     public void onCreate() {
         super.onCreate();
         String advStr = getAssetsConfig(this,"AdvData.json");
-        AdConfig.init(this,advStr,true);
+        AdConfig.initStr(this,advStr,true);//String方式初始化
     }
 
     /**

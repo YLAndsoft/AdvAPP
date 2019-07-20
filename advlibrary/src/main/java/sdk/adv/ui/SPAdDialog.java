@@ -15,8 +15,6 @@ import android.widget.FrameLayout;
 import sdk.adv.AdConfig;
 import sdk.adv.AdvConstant;
 import sdk.adv.R;
-import sdk.adv.execute.AdvExecute;
-import sdk.adv.execute.AdvPools;
 import sdk.adv.interfaces.OnSuccessListener;
 import sdk.adv.manager.CSJAdvHelper;
 import sdk.adv.manager.GDTAdvHelper;
@@ -60,9 +58,9 @@ public class SPAdDialog extends Dialog {
     }
 
     public void showDialog(int advType,int gold,AdConfig config){
-        this.show();//先显示，再加载广告
+        SPAdDialog.this.show();//先显示，再加载广告
         if(advType== AdvConstant.CSJ_TYPE){
-            CSJAdvHelper.loadCSJKPAdv((Activity)mContext, spAdv, config.getCsj_splashID(), gold, new OnSuccessListener() {
+            CSJAdvHelper.loadCSJKPAdv((Activity)mContext, spAdv, config.getCsjAdvID().getCsj_splashID(), gold, new OnSuccessListener() {
                 @Override
                 public void onComplete(int type, int gold, boolean isNormal) {
                     if(listener!=null)listener.onComplete(gold,isNormal);
@@ -73,10 +71,12 @@ public class SPAdDialog extends Dialog {
                 }
             });
         }else if(advType==AdvConstant.GDT_TYPE){
-            GDTAdvHelper.loadSplashAD((Activity)mContext, spAdv, config.getGdt_appID(), config.getGdt_kpID(),gold, new OnSuccessListener() {
+            GDTAdvHelper.loadSplashAD((Activity)mContext, spAdv, config.getGdtAdvID().getGdt_appID(), config.getGdtAdvID().getGdt_splashID(),gold, new OnSuccessListener() {
                 @Override
                 public void onComplete(int type, int gold, boolean isNormal) {
+
                     if(listener!=null)listener.onComplete(gold,isNormal);
+
                 }
                 @Override
                 public void onFail(int type) {
@@ -84,7 +84,6 @@ public class SPAdDialog extends Dialog {
                 }
             });
         }
-
 
     }
 

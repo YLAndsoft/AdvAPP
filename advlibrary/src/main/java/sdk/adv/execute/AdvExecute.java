@@ -6,6 +6,10 @@ import android.widget.FrameLayout;
 import sdk.adv.AdConfig;
 import sdk.adv.AdvConstant;
 import sdk.adv.entity.AdvEntity;
+import sdk.adv.entity.CsjAdvID;
+import sdk.adv.entity.GdtAdvID;
+import sdk.adv.entity.JzAdvID;
+import sdk.adv.entity.LkAdvID;
 import sdk.adv.interfaces.OnSuccessListener;
 import sdk.adv.manager.CSJAdvHelper;
 import sdk.adv.manager.GDTAdvHelper;
@@ -22,6 +26,14 @@ import sdk.adv.ui.SPAdDialog;
 public class AdvExecute {
     private static AdvExecute advExecute;
     private static AdConfig config;
+
+    private static CsjAdvID csjAdvID; //穿山甲ID
+    /**广点通ID*/
+    private static GdtAdvID gdtAdvID;//广点通ID
+    /**精众*/
+    private static JzAdvID jzAdvID ;//精众AdvID
+    /**链咖*/
+    private static LkAdvID lkAdvID;//链咖AdvID
     public interface OnCompleteListener{
         void onComplete(int gold, boolean isNormal);
     }
@@ -29,6 +41,12 @@ public class AdvExecute {
     public static AdvExecute create() {
         if (advExecute == null) {
             config = AdConfig.adConfig;
+            if(null!=config){
+                csjAdvID = config.getCsjAdvID();
+                gdtAdvID = config.getGdtAdvID();
+                jzAdvID = config.getJzAdvID();
+                lkAdvID = config.getLkAdvID();
+            }
             advExecute = new AdvExecute();
         }
         return advExecute;
@@ -130,7 +148,7 @@ public class AdvExecute {
         }
         if(advEntity.getAdvType()==AdvConstant.CSJ_TYPE){
             //AdvConstant.csj_bannerID
-            CSJAdvHelper.loadCSJBannerAdv(activity, config.getCsj_bannerID(), frameLayout, new OnSuccessListener() {
+            CSJAdvHelper.loadCSJBannerAdv(activity, csjAdvID.getCsj_bannerID(), frameLayout, new OnSuccessListener() {
                 @Override
                 public void onComplete(int type, int gold, boolean isNormal) {
                     AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
@@ -145,7 +163,7 @@ public class AdvExecute {
             });
         }else if(advEntity.getAdvType()==AdvConstant.GDT_TYPE){
             //AdvConstant.gdt_appID, AdvConstant.gdt_bannerID
-            GDTAdvHelper.loadBanner(activity, frameLayout,config.getGdt_appID(),config.getGdt_bannerID() , new OnSuccessListener() {
+            GDTAdvHelper.loadBanner(activity, frameLayout,gdtAdvID.getGdt_appID(),gdtAdvID.getGdt_bannerID() , new OnSuccessListener() {
                 @Override
                 public void onComplete(int type, int gold, boolean isNormal) {
                     AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
@@ -181,7 +199,7 @@ public class AdvExecute {
         }
         if(advEntity.getAdvType()==AdvConstant.CSJ_TYPE){
             //AdvConstant.csj_cpID
-            CSJAdvHelper.loadCSJCPAdv(activity, config.getCsj_cpID(), 0, new OnSuccessListener() {
+            CSJAdvHelper.loadCSJCPAdv(activity, csjAdvID.getCsj_cpID(), 0, new OnSuccessListener() {
                 @Override
                 public void onComplete(int type, int gold, boolean isNormal) {
                     AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
@@ -196,7 +214,7 @@ public class AdvExecute {
             });
         }else if(advEntity.getAdvType()==AdvConstant.GDT_TYPE){
             //AdvConstant.gdt_appID, AdvConstant.gdt_cpID
-            GDTAdvHelper.loadCPAdv(activity, config.getGdt_appID(),config.getGdt_cpID(), 0, new OnSuccessListener() {
+            GDTAdvHelper.loadCPAdv(activity, gdtAdvID.getGdt_appID(),gdtAdvID.getGdt_cpID(), 0, new OnSuccessListener() {
                 @Override
                 public void onComplete(int type, int gold, boolean isNormal) {
                     AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
@@ -227,17 +245,22 @@ public class AdvExecute {
             listener.onComplete(0,true);
             return;
         }
-        spAdDialog = new SPAdDialog(activity);
+        if(null==spAdDialog)spAdDialog = new SPAdDialog(activity);
         spAdDialog.setOnCompleteListener(new SPAdDialog.OnCompleteListener() {
             @Override
             public void onComplete(int gold, boolean isNormal) {
                 AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
+                if(null!=spAdDialog&&spAdDialog.isShowing()){
+                    spAdDialog.dismiss();
+                }
                 if(listener!=null)listener.onComplete(gold,isNormal);
-                if(null!=spAdDialog&&spAdDialog.isShowing())spAdDialog.dismiss();
             }
             @Override
             public void onFail() {
                 AdvPools.getAdvPool(activity).setSplashFailPool(advEntity);
+                if(null!=spAdDialog&&spAdDialog.isShowing()){
+                    spAdDialog.dismiss();
+                }
                 executeSplashAdv(activity,listener);
             }
         });
@@ -256,7 +279,7 @@ public class AdvExecute {
     public void executeSplashAdv(final Activity activity, final FrameLayout frameLayout,final OnCompleteListener listener){
         if(isNull(config)){
             Lo.e("配置文件为空,不加载广告！");
-//            if(null!=listener)listener.onComplete(0,false);
+            if(null!=listener)listener.onComplete(0,false);
             return;
         }
         final AdvEntity advEntity = AdvPools.getAdvPool(activity).getSpashAdv();
@@ -268,7 +291,7 @@ public class AdvExecute {
         }
         if(advEntity.getAdvType()==AdvConstant.CSJ_TYPE){
             //AdvConstant.csj_splashID
-            CSJAdvHelper.loadCSJKPAdv(activity, frameLayout, config.getCsj_splashID(), 0, new OnSuccessListener() {
+            CSJAdvHelper.loadCSJKPAdv(activity, frameLayout, csjAdvID.getCsj_splashID(), 0, new OnSuccessListener() {
                 @Override
                 public void onComplete(int type, int gold, boolean isNormal) {
                     AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
@@ -283,7 +306,7 @@ public class AdvExecute {
             });
         }else if(advEntity.getAdvType()==AdvConstant.GDT_TYPE){
             //AdvConstant.gdt_kpID, AdvConstant.gdt_appID
-            GDTAdvHelper.loadSplashAD(activity, frameLayout, config.getGdt_appID(),config.getGdt_kpID(), 0, new OnSuccessListener() {
+            GDTAdvHelper.loadSplashAD(activity, frameLayout, gdtAdvID.getGdt_appID(),gdtAdvID.getGdt_splashID(), 0, new OnSuccessListener() {
                 @Override
                 public void onComplete(int type, int gold, boolean isNormal) {
                     AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
@@ -319,7 +342,7 @@ public class AdvExecute {
         }
         if(advEntity.getAdvType()==AdvConstant.CSJ_TYPE){
             //AdvConstant.csj_videoID
-            CSJAdvHelper.loadCSJVideo(activity, config.getCsj_videoID(), 0, new OnSuccessListener() {
+            CSJAdvHelper.loadCSJVideo(activity, csjAdvID.getCsj_videoID(), 0, new OnSuccessListener() {
                 @Override
                 public void onComplete(int type, int gold, boolean isNormal) {
                     AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
@@ -334,7 +357,7 @@ public class AdvExecute {
             });
         }else if(advEntity.getAdvType()==AdvConstant.GDT_TYPE){
             //AdvConstant.gdt_appID ,AdvConstant.gdt_videoID
-            GDTAdvHelper.loadVideoAdv(activity, config.getGdt_appID(), config.getGdt_videoID(), 0, new OnSuccessListener() {
+            GDTAdvHelper.loadVideoAdv(activity, gdtAdvID.getGdt_appID(), gdtAdvID.getGdt_videoID(), 0, new OnSuccessListener() {
                 @Override
                 public void onComplete(int type, int gold, boolean isNormal) {
                     AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
@@ -349,7 +372,7 @@ public class AdvExecute {
             });
         }else if(advEntity.getAdvType()==AdvConstant.JZ_TYPE){
             //精众视频
-            JZAdvHelper.loadVideoAdv(activity, config.getJz_appID(), config.getJz_posID(), 0, new OnSuccessListener() {
+            JZAdvHelper.loadVideoAdv(activity, jzAdvID.getJz_appID(), jzAdvID.getJz_posID(), 0, new OnSuccessListener() {
                 @Override
                 public void onComplete(int type, int gold, boolean isNormal) {
                     AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
@@ -364,7 +387,7 @@ public class AdvExecute {
             });
         }else if(advEntity.getAdvType()==AdvConstant.LK_TYPE){
             //链咖视频
-            LKAdvHelper.loadLKVideoAdv(config.getAdPosId(), "", 0, new OnSuccessListener() {
+            LKAdvHelper.loadLKVideoAdv(lkAdvID.getLk_posID(), "", 0, new OnSuccessListener() {
                 @Override
                 public void onComplete(int type, int gold, boolean isNormal) {
                     //视频播放完成
@@ -397,7 +420,7 @@ public class AdvExecute {
             return;
         }
         //AdvConstant.csj_videoID
-        CSJAdvHelper.loadCSJVideo(activity, config.getCsj_videoID(), gold, new OnSuccessListener() {
+        CSJAdvHelper.loadCSJVideo(activity, csjAdvID.getCsj_videoID(), gold, new OnSuccessListener() {
             @Override
             public void onComplete(int type, int gold, boolean isNormal) {
                 AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
@@ -430,7 +453,7 @@ public class AdvExecute {
             return;
         }
         //AdvConstant.csj_splashID
-        CSJAdvHelper.loadCSJKPAdv(activity, frameLayout, config.getCsj_splashID(), gold, new OnSuccessListener() {
+        CSJAdvHelper.loadCSJKPAdv(activity, frameLayout, csjAdvID.getCsj_splashID(), gold, new OnSuccessListener() {
             @Override
             public void onComplete(int type, int gold, boolean isNormal) {
                 AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
@@ -492,7 +515,7 @@ public class AdvExecute {
             return;
         }
         //AdvConstant.csj_cpID
-        CSJAdvHelper.loadCSJCPAdv(activity,config.getCsj_cpID() , gold, new OnSuccessListener() {
+        CSJAdvHelper.loadCSJCPAdv(activity,csjAdvID.getCsj_cpID() , gold, new OnSuccessListener() {
             @Override
             public void onComplete(int type, int gold, boolean isNormal) {
                 AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
@@ -525,7 +548,7 @@ public class AdvExecute {
             return;
         }
         //AdvConstant.gdt_appID,AdvConstant.gdt_videoID
-        GDTAdvHelper.loadVideoAdv(activity, config.getGdt_appID(),config.getGdt_videoID() , gold, new OnSuccessListener() {
+        GDTAdvHelper.loadVideoAdv(activity, gdtAdvID.getGdt_appID(),gdtAdvID.getGdt_videoID() , gold, new OnSuccessListener() {
             @Override
             public void onComplete(int type, int gold, boolean isNormal) {
                 AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
@@ -558,7 +581,7 @@ public class AdvExecute {
             return;
         }
         //AdvConstant.gdt_kpID, AdvConstant.gdt_appID
-        GDTAdvHelper.loadSplashAD(activity, frameLayout, config.getGdt_appID(), config.getGdt_kpID(),gold, new OnSuccessListener() {
+        GDTAdvHelper.loadSplashAD(activity, frameLayout, gdtAdvID.getGdt_appID(), gdtAdvID.getGdt_splashID(),gold, new OnSuccessListener() {
             @Override
             public void onComplete(int type, int gold, boolean isNormal) {
                 AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
@@ -621,7 +644,7 @@ public class AdvExecute {
             return;
         }
         //AdvConstant.gdt_appID, AdvConstant.gdt_cpID
-        GDTAdvHelper.loadCPAdv(activity, config.getGdt_appID(),config.getGdt_cpID(), gold, new OnSuccessListener() {
+        GDTAdvHelper.loadCPAdv(activity, gdtAdvID.getGdt_appID(),gdtAdvID.getGdt_cpID(), gold, new OnSuccessListener() {
             @Override
             public void onComplete(int type, int gold, boolean isNormal) {
                 AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
@@ -654,7 +677,7 @@ public class AdvExecute {
             return;
         }
         //AdvConstant.gdt_appID,AdvConstant.gdt_videoID
-        JZAdvHelper.loadVideoAdv(activity, config.getJz_appID(),config.getJz_posID() , gold, new OnSuccessListener() {
+        JZAdvHelper.loadVideoAdv(activity, jzAdvID.getJz_appID(),jzAdvID.getJz_posID() , gold, new OnSuccessListener() {
             @Override
             public void onComplete(int type, int gold, boolean isNormal) {
                 AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
@@ -687,7 +710,7 @@ public class AdvExecute {
 //            if(listener!=null)listener.onComplete(gold,false);
             return;
         }
-        LKAdvHelper.loadLKVideoAdv(config.getAdPosId(), "", gold, new OnSuccessListener() {
+        LKAdvHelper.loadLKVideoAdv(lkAdvID.getLk_posID(), "", gold, new OnSuccessListener() {
             @Override
             public void onComplete(int type, int gold, boolean isNormal) {
                 AdvPools.getAdvPool(activity).clearFailPool();//清空失败池
