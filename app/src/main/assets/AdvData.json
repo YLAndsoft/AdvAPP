@@ -38,24 +38,24 @@
     },
     "gdtAdvID":{
       "tips":"广点通广告相关ID",
-      "gdt_appID":"1109487323",
-      "gdt_bannerID":"4010767927257280",
-      "gdt_cpID":"2030162937256262",
-      "gdt_splashID":"9080860977550221",
-      "gdt_videoID":"6000625736289442"
+      "gdt_appID":"11094873234",
+      "gdt_bannerID":"40107679272572803",
+      "gdt_cpID":"20301629372562622",
+      "gdt_splashID":"90808609775502211",
+      "gdt_videoID":"60006257362894420"
     },
     "jzAdvID":{
       "tips":"精众视频广告相关ID",
-      "jz_appID":"1563414494",
-      "jz_posID":"1563414565"
+      "jz_appID":"1540623508",
+      "jz_posID":"1561692800"
     },
     "lkAdvID":{
       "tips":"链咖广告相关ID",
-      "lk_appID":"205",
-      "lk_appKey":"ea591PSDCQW44ekGvdc8Qtytm3MjFS8_olpyczxEwleFlhPjmg",
-      "lk_posID":"314"
+      "lk_appID":"000",
+      "lk_appKey":"ea591PSDCQW44ekGvdc8Qtytm3MjFS8",
+      "lk_posID":"000"
     }
   },
-  "appName":"人猫人狗交流翻译器",
-  "packageName":"hms.bbps.tmans"
+  "appName":"xxxxxx",
+  "packageName":"xxx.xxx.xxx"
 }
