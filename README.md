@@ -6,7 +6,7 @@
 * 4.精众视频SDK
 * 发布到jitpack容易产生依赖冲突，所以只能下载library,以module方式导入
 
-[配置文件](https://github.com/YLAndsoft/BaseProject/wiki)  
+[配置文件](https://github.com/YLAndsoft/AdvAPP/blob/master/app/src/main/assets/AdvData.json)  
 
 7月18日更新：
 * 修改广告加载机制：
