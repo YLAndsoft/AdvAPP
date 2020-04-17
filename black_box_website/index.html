@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="width=device-width,initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="huaban" content="nopin" />
+    <title>黑匣子影视App下载</title>
+    <link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+  </head>
+  <!-- 横行滚动禁止 overflow-x: hidden; -->
+  <body style="margin: 0;padding: 0;font-size: 0;overflow-x: hidden;">
+
+        <div class="home">
+          <div class="heard">
+              <div class="left">
+                <img src="img/icon.jpg">
+              </div>
+              <div class="right">
+                 <p class="title">黑匣子影视</p>
+                 <p class="cont"><span>文件大小：5.83MB</span>&nbsp;&nbsp; <span>当前版本：V1.1.3</span></p>
+                 <p class="cont"><span>更新时间：2020-04-16</span></p>
+              </div>
+          </div>
+          <div id="btnBox">
+              
+              <a href="https://movies0118.oss-cn-beijing.aliyuncs.com/movies/heixiazi_10.apk?a=%E4%B8%AD%E6%96%87&a=sads">立即下载</a>
+              
+          </div>
+          <div id="cob_box">
+            <p class="bannder_t">软件详情</p>
+          </div>
+          <div class="bannder_box">
+              <img src="img/bannder1.jpg" >
+              <img src="img/bannder2jpg.jpg" >
+              <img src="img/bannder3.jpg" >
+          </div>
+          <div class="jianjie_box">
+              <p class="title">黑匣子影视怎么样</p>
+              <p class="jj_c">黑匣子影视app是高品质的在线视频播放平台。提供最新电影在线观看、剧情简介、影评介绍的影视聚合app，能推荐给大家各类好看的电影作品和精彩的剧情解析，提供各类热门电影、大片、电视剧在线看的电影大全app</p>
+          </div>
+        </div>
+   <script src="js/jquery.js"></script>
+   <script src="js/swiper.min.js"></script>
+   <script>
+   //得到手机屏幕的宽度
+   let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
+   console.log('htmlWidth',htmlWidth)
+   //得到html的Dom元素
+   let htmlDom = document.getElementsByTagName('html')[0];
+   // if(htmlWidth>640){//超过640大小的，字体根部都是16px
+   // htmlWidth=640;
+   // console.log('htmlWidth-true',htmlWidth)
+   // }
+   //设置根元素字体大小
+   htmlDom.style.fontSize = htmlWidth / 40 + 'px';
+    
+    $(".ds_btn").on('click',function(){
+        $("#dialogs").show();
+    })
+    $("#closeDialog").on('click',function(){
+        $("#dialogs").hide();
+    })
+    function setMoney(price){
+        $("#price").val(price);
+    }
+    var mySwiper = new Swiper('.swiper-container', {
+      autoplay: true,//可选选项，自动滑动
+    })
+
+    //如果你初始化时没有定义Swiper实例，后面也可以通过Swiper的HTML元素来获取该实例
+    new Swiper('.swiper-container')
+    var mySwiper = document.querySelector('.swiper-container').swiper
+    mySwiper.slideNext();    
+   </script>
+  </body>
+</html>
